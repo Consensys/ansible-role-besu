@@ -1,0 +1,49 @@
+---
+
+# User and group
+besu_user: besu
+besu_group: "{{ besu_user }}"
+
+# Version to install
+besu_download_url: "https://bintray.com/hyperledger-org/besu-repo/download_file?file_path=besu-{{ besu_version }}.tar.gz"
+
+# Directory paths
+besu_base_dir: "/opt/besu"
+besu_install_dir: "{{ besu_base_dir }}/besu-{{ besu_version }}"
+besu_current_dir: "{{ besu_base_dir }}/current"
+besu_config_dir: "/etc/besu"
+besu_config_template: "config.toml.j2"
+besu_data_dir: "{{ besu_base_dir }}/data"
+besu_log_dir: "/var/log/besu"
+besu_profile_file: "/etc/profile.d/besu-path.sh"
+
+# Managed service config
+besu_managed_service: true
+besu_systemd_state: restarted
+besu_systemd_template: besu.service.j2
+besu_systemd_dir: /etc/systemd/system
+besu_launchd_template: org.hyperledger.besu.plist.j2
+besu_launchd_dir: /Library/LaunchAgents
+
+# Besu config
+besu_host_ip: ""
+besu_default_ip: "127.0.0.1"
+besu_network: mainnet
+besu_sync_mode: FAST
+besu_log_level: INFO
+besu_p2p_port: 30303
+besu_rpc_http_enabled: "true"
+besu_rpc_http_host: 0.0.0.0
+besu_rpc_http_api: ["ADMIN", "DEBUG", "NET", "ETH", "MINER", "WEB3"]
+besu_rpc_ws_enabled: "true"
+besu_rpc_ws_host: 0.0.0.0
+besu_rpc_ws_port: 8546
+besu_metrics_host: 0.0.0.0
+besu_metrics_port: 9545
+besu_bootnodes: []
+besu_host_whitelist: ["*"]
+besu_cmdline_args: ""
+besu_env_opts: ""
+
+# internal state to maintain idempotency
+besu_state_updates: []

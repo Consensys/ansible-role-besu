@@ -1,0 +1,13 @@
+.idea/
+env/
+playbooks/env
+playbooks/*.retry
+playbooks/*.password
+playbooks/*.pyc
+playbooks/filter_plugins/*.pyc
+playbooks/callback_plugins/*.pyc
+callback_plugins/__pycache__/*.pyc
+filter_plugins/__pycache__/*.pyc
+playbooks/callback_plugins/__pycache__/*.pyc
+playbooks/filter_plugins/__pycache__/*.pyc
+

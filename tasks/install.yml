@@ -1,0 +1,80 @@
+---
+- name: Ensure Besu group exists
+  group:
+    name: "{{ besu_group }}"
+    state: present
+  become: true
+
+- name: Create Besu user
+  user:
+    comment:  Besu client user
+    name: "{{ besu_user }}"
+    group: "{{ besu_group }}"
+  become: true
+
+- name: Create base directory
+  file:
+    path: "{{ besu_base_dir }}"
+    state: directory
+    owner: "{{ besu_user }}"
+    group: "{{ besu_group }}"
+  become: true
+
+- name: Create install directory
+  file:
+    path: "{{ besu_install_dir }}"
+    state: directory
+    owner: "{{ besu_user }}"
+    group: "{{ besu_group }}"
+  become: true
+
+- name: Create log directory
+  file:
+    path: "{{ besu_log_dir }}"
+    state: directory
+    owner: "{{ besu_user }}"
+    group: "{{ besu_group }}"
+  become: true
+
+- name: Setup logrotate
+  template:
+    src: "logrotate/besu"
+    dest: "/etc/logrotate.d/besu"
+  become: true
+
+- name: Extract Besu source to install directory
+  unarchive:
+    src: "{{ besu_download_url }}"
+    remote_src: true
+    dest: "{{ besu_install_dir }}"
+    owner: "{{ besu_user }}"
+    group: "{{ besu_group }}"
+    mode: '0775'
+    extra_opts:
+      - --strip-components
+      - '1'
+  become: true
+  register: extract_src
+
+- name: Set updated optionally to trigger a systemd restart at the end
+  set_fact:
+    besu_state_updates: "{{ besu_state_updates + ['besu.install_dir'] }}"
+  when: extract_src is changed
+
+# will throw error the first time you install since the service isnt present
+- name: Stop Besu systemd service if running
+  service:
+    name: besu
+    state: stopped
+  when: ( extract_src is changed ) and
+    ( besu_managed_service ) and
+    ( ansible_os_family != "Darwin" )
+  become: true
+  ignore_errors: true
+
+- name: Create a symlink to current
+  file:
+    src: "{{ besu_install_dir }}/"
+    dest: "{{ besu_current_dir }}"
+    state: link
+  become: true

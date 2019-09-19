@@ -1,0 +1,37 @@
+# data
+data-path="{{besu_data_dir}}"
+logging="{{besu_log_level}}"
+
+network="{{besu_network}}"
+sync-mode="{{besu_sync_mode}}"
+host-whitelist=[{{besu_host_whitelist|map('to_json')|join(',')}}]
+
+# rpc
+{% if besu_rpc_http_enabled|bool == True %}
+rpc-http-enabled={{besu_rpc_http_enabled}}
+rpc-http-host="{{besu_rpc_http_host}}"
+rpc-http-api=[{{besu_rpc_http_api|map('to_json')|join(',')}}]
+{% endif %}
+
+# ws
+{% if besu_rpc_ws_enabled|bool == True %}
+rpc-ws-enabled={{besu_rpc_ws_enabled}}
+rpc-ws-host="{{besu_rpc_ws_host}}"
+rpc-ws-port={{besu_rpc_ws_port}}
+{% endif %}
+
+# p2p
+{% if besu_host_ip != "" %}
+p2p-host="{{besu_host_ip}}"
+{% endif %}
+p2p-port={{besu_p2p_port}}
+
+# metrics
+metrics-enabled=true
+metrics-host="{{besu_metrics_host}}"
+metrics-port={{besu_metrics_port}}
+
+{% if besu_bootnodes|length > 0 %}
+# bootnodes
+bootnodes={{besu_bootnodes}}
+{% endif %}

@@ -1,0 +1,31 @@
+---
+- name: Create configuration directory
+  file:
+    path: "{{ besu_config_dir }}"
+    state: directory
+    owner: "{{ besu_user }}"
+    group: "{{ besu_group }}"
+  become: true
+
+- name: Generate config file
+  template:
+    src: "{{ besu_config_template }}"
+    dest: "{{ besu_config_dir }}/config.toml"
+    owner: "{{ besu_user }}"
+    group: "{{ besu_group }}"
+    mode: 0644
+  become: true
+  register: config_toml
+
+- name: Set updated optionally to trigger a systemd restart at the end
+  set_fact:
+    besu_state_updates: "{{ besu_state_updates + ['besu.config_toml'] }}"
+  when: config_toml is changed
+
+- name: Create data directory
+  file:
+    path: "{{ besu_data_dir }}"
+    state: directory
+    owner: "{{ besu_user }}"
+    group: "{{ besu_group }}"
+  become: true

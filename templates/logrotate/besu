@@ -1,0 +1,9 @@
+/var/log/besu/*.log {
+    rotate 14
+    notifempty
+    missingok
+    size 25M
+    daily
+    copytruncate
+    compress
+}

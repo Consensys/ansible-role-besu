@@ -1,0 +1,34 @@
+---
+- name: Ensure we have besu_version
+  fail:
+    msg: You must set "besu_version" for this role to run
+  when: besu_version is not defined
+
+- name: Include OS and distribution specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_distribution|lower }}.yml"
+        - "{{ ansible_os_family|lower }}.yml"
+      skip: true
+
+- name: Install besu
+  include_tasks: "install.yml"
+
+- name: Run OS specific installation tasks
+  include_tasks: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_distribution|lower }}/install.yml"
+        - "{{ ansible_os_family|lower }}/install.yml"
+      skip: true
+
+- name: Get IP address to bind to if not provided
+  include_tasks: "network.yml"
+  when: not besu_host_ip
+
+- name: Create config
+  include_tasks: "config.yml"
+
+- name: Create Besu service
+  include_tasks: "service.yml"
