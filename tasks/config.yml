@@ -5,6 +5,7 @@
     state: directory
     owner: "{{ besu_user }}"
     group: "{{ besu_group }}"
+    recurse: yes
   become: true
 
 - name: Generate config file
@@ -28,4 +29,5 @@
     state: directory
     owner: "{{ besu_user }}"
     group: "{{ besu_group }}"
+    recurse: yes
   become: true
