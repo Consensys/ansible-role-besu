@@ -68,7 +68,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 1. Default setup:
 Install the role from galaxy
 ```
-ansible-galaxy install hyperledger.besu
+ansible-galaxy install pegasyseng.hyperledger_besu
 ```
 
 Create a requirements.yml with the following:
@@ -80,7 +80,7 @@ Replace `x.y.z` below with the version you would like to use from the Besu [solu
   force_handlers: True
 
   roles:
-  - role: hyperledger.besu
+  - role: pegasyseng.hyperledger_besu
     vars:
       besu_version: x.y.z
 
@@ -95,7 +95,7 @@ ansible-playbook -v /path/to/requirements.yml
 2. Install via github
 
 ```
-ansible-galaxy install git+https://github.com/Hyperledger/ansible-role-besu.git
+ansible-galaxy install git+https://github.com/pegasyseng/ansible-role-besu.git
 ```
 
 Create a requirements.yml with the following:
@@ -126,4 +126,4 @@ Apache
 
 ### Author Information
 
-HLF, 2019
+PegaSysEng, 2019
