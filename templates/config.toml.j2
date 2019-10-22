@@ -2,7 +2,11 @@
 data-path="{{besu_data_dir}}"
 logging="{{besu_log_level}}"
 
+{% if besu_network.lower() != "custom" %}
 network="{{besu_network}}"
+{% else %}
+genesis-file="{{ besu_genisis_path }}
+{% endif %}
 sync-mode="{{besu_sync_mode}}"
 host-whitelist=[{{besu_host_whitelist|map('to_json')|join(',')}}]
 
