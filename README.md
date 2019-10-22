@@ -46,7 +46,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_host_ip` | "" | The host IP that Besu uses for the P2P network. This specifies the host on which P2P listens |
 | `besu_default_ip` | "{{ default(ansible_host) \| default('127.0.0.1') }}" | The fallback default for `besu_host_ip` |
 | `besu_network` | mainnet | The network that this node will join. Other values are 'ropsten', 'rinkeby', 'goerli', 'dev' and 'custom' |
-| `besu_genesis_path | ___unset___ | The path to the genesis file, only valid when `besu_network` is `custom` |
+| `besu_genesis_path` | ___unset___ | The path to the genesis file, only valid when `besu_network` is `custom` |
 | `besu_sync_mode` | FAST | Specifies the synchronization mode. Other values are 'FULL' |
 | `besu_log_level` | INFO | The log level to use. Other log levels are 'OFF', 'FATAL', 'WARN', 'INFO', 'DEBUG', 'TRACE', 'ALL' |
 | `besu_p2p_port` | 30303 | Specifies the P2P listening ports (UDP and TCP). Ports must be exposed appropriately |
