@@ -2,7 +2,7 @@
 data-path="{{besu_data_dir}}"
 logging="{{besu_log_level}}"
 
-{% if besu_network.lower() != "custom" %}
+{% if besu_network.lower() in ["mainnet", "rinkeby", "goerli", "ropsten", "dev"] %}
 network="{{besu_network}}"
 {% else %}
 genesis-file="{{ besu_genesis_path }}"
