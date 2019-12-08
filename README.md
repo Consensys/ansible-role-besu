@@ -36,6 +36,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_download_url` | https://bintray.com/hyperledger-org/besu-repo/download_file?file_path=besu-{{ besu_version }}.tar.gz | The download tar.gz file used. You can use this if you need to retrieve besu from a custom location such as an internal repository. |
 | `besu_install_dir` | /opt/besu | Path to install to  |
 | `besu_config_dir` | /etc/besu | Path for default configuration |
+| `besu_node_private_key_file` | "" | Path for node private key, if supplied. This needs to include the node key file name and path like so `/home/me/me_node/myPrivateKey`. If not supplied Besu will create one automatically |
 | `besu_data_dir` | /opt/besu/data | Path for data directory|
 | `besu_log_dir` | /var/log/besu | Path for logs |
 | `besu_profile_file` | /etc/profile.d/besu-path.sh | Path to allow loading Besu into the system PATH |

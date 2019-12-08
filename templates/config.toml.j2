@@ -2,6 +2,11 @@
 data-path="{{besu_data_dir}}"
 logging="{{besu_log_level}}"
 
+# private_key
+{% if besu_node_private_key_file != "" %}
+node-private-key-file="{{besu_node_private_key_file}}"
+{% endif %}
+
 {% if besu_network.lower() in ["mainnet", "rinkeby", "goerli", "ropsten", "dev"] %}
 network="{{besu_network}}"
 {% else %}

@@ -11,6 +11,7 @@ besu_download_url: "https://bintray.com/hyperledger-org/besu-repo/download_file?
 besu_base_dir: "/opt/besu"
 besu_install_dir: "{{ besu_base_dir }}/besu-{{ besu_version }}"
 besu_current_dir: "{{ besu_base_dir }}/current"
+besu_node_private_key_file: ""
 besu_config_dir: "/etc/besu"
 besu_config_template: "config.toml.j2"
 besu_data_dir: "{{ besu_base_dir }}/data"
