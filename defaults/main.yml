@@ -35,10 +35,16 @@ besu_log_level: INFO
 besu_p2p_port: 30303
 besu_rpc_http_enabled: "true"
 besu_rpc_http_host: 0.0.0.0
+besu_rpc_http_port: 8545
 besu_rpc_http_api: ["ADMIN", "DEBUG", "NET", "ETH", "MINER", "WEB3"]
+besu_rpc_http_cors_origins: ["all"]
 besu_rpc_ws_enabled: "true"
 besu_rpc_ws_host: 0.0.0.0
 besu_rpc_ws_port: 8546
+besu_graphql_http_enabled: "true"
+besu_graphql_http_host: 0.0.0.0
+besu_graphql_http_port: 8547
+besu_graphql_http_cors_origins: ["all"]
 besu_metrics_host: 0.0.0.0
 besu_metrics_port: 9545
 besu_bootnodes: []

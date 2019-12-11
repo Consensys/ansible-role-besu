@@ -53,10 +53,16 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_p2p_port` | 30303 | Specifies the P2P listening ports (UDP and TCP). Ports must be exposed appropriately |
 | `besu_rpc_http_enabled` | true | Enabled the HTTP JSON-RPC service |
 | `besu_rpc_http_host` | 0.0.0.0 | Specifies the host on which HTTP JSON-RPC listens |
+| `besu_rpc_http_port` | 8545 | Specifies the port on which HTTP JSON-RPC listens |
 | `besu_rpc_http_api` | ["ADMIN","DEBUG","NET","ETH","MINER","WEB3"] | Comma-separated APIs to enable on the HTTP JSON-RPC channel. When you use this option, the `besu_rpc_http_enabled` option must also be enabled |
+| `besu_rpc_http_cors_origins` | ["all"] | Comma separated origin domain URLs for CORS validation |
 | `besu_rpc_ws_enabled` | true | Enabled the WebSockets service |
 | `besu_rpc_ws_host` | 0.0.0.0 | Specifies the host on which WebSockets listens |
 | `besu_rpc_ws_port` | 8546 | Specifies Websockets JSON-RPC listening port (TCP). Port must be exposed appropriately |
+| `besu_graphql_http_enabled` | true | Enabled the HTTP JSON-RPC service |
+| `besu_graphql_http_host` | 0.0.0.0 | Specifies the host on which HTTP JSON-RPC listens |
+| `besu_graphql_http_port` | 8547 | Specifies the port on which HTTP JSON-RPC listens |
+| `besu_graphql_http_cors_origins` | ["all"] | Comma separated origin domain URLs for CORS validation |
 | `besu_metrics_host` | 0.0.0.0 | Specifies the host on which Prometheus accesses Besu metrics. The metrics server respects the `besu_whitelist` option |
 | `besu_metrics_port` | 9545 | Specifies the port on which Prometheus accesses Besu metrics |
 | `besu_bootnodes` | [] | List of comma-separated enode URLs for P2P discovery bootstrap. When connecting to MainNet or public testnets, the default is a predefined list of enode URLs |
