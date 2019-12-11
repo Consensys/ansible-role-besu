@@ -19,7 +19,9 @@ host-whitelist=[{{besu_host_whitelist|map('to_json')|join(',')}}]
 {% if besu_rpc_http_enabled|bool == True %}
 rpc-http-enabled={{besu_rpc_http_enabled}}
 rpc-http-host="{{besu_rpc_http_host}}"
+rpc-http-port={{besu_rpc_http_port}}
 rpc-http-api=[{{besu_rpc_http_api|map('to_json')|join(',')}}]
+rpc-http-cors-origins=[{{besu_rpc_http_cors_origins|map('to_json')|join(',')}}]
 {% endif %}
 
 # ws
@@ -27,6 +29,14 @@ rpc-http-api=[{{besu_rpc_http_api|map('to_json')|join(',')}}]
 rpc-ws-enabled={{besu_rpc_ws_enabled}}
 rpc-ws-host="{{besu_rpc_ws_host}}"
 rpc-ws-port={{besu_rpc_ws_port}}
+{% endif %}
+
+# graphql
+{% if besu_rpc_graphql_enabled|bool == True %}
+graphql-http-enabled={{besu_graphql_http_enabled}}
+graphql-http-host="{{besu_graphql_http_host}}"
+graphql-http-port={{besu_graphql_http_port}}
+graphql-http-cors-origins=[{{besu_graphql_http_cors_origins|map('to_json')|join(',')}}]
 {% endif %}
 
 # p2p
