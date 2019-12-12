@@ -32,7 +32,7 @@ rpc-ws-port={{besu_rpc_ws_port}}
 {% endif %}
 
 # graphql
-{% if besu_rpc_graphql_enabled|bool == True %}
+{% if besu_graphql_http_enabled|bool == True %}
 graphql-http-enabled={{besu_graphql_http_enabled}}
 graphql-http-host="{{besu_graphql_http_host}}"
 graphql-http-port={{besu_graphql_http_port}}
