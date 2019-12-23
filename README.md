@@ -44,6 +44,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_launchd_dir` | /Library/LaunchAgents | The default launchd directory  |
 | `besu_systemd_dir` | /etc/systemd/system/ | The default systemd directory |
 | `besu_systemd_state` | restarted | The default option for the systemd service state |
+| `besu_identity` | ___unset___  | Configuration of Identity in the Client ID |
 | `besu_host_ip` | "" | The host IP that Besu uses for the P2P network. This specifies the host on which P2P listens |
 | `besu_default_ip` | "{{ default(ansible_host) \| default('127.0.0.1') }}" | The fallback default for `besu_host_ip` |
 | `besu_network` | mainnet | The network that this node will join. Other values are 'ropsten', 'rinkeby', 'goerli', 'dev' and 'custom' |
