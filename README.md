@@ -70,6 +70,9 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_host_whitelist` | ["*"] | Comma-separated list of hostnames to allow access to the JSON-RPC API. By default, access from localhost and 127.0.0.1 is accepted. |
 | `besu_cmdline_args` | "" | Command line args that are passed in as overrides |
 | `besu_env_opts` | "" | Environmental variable BESU_OPTS that gets passed to the JVM. eg: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 |
+| `orion_version` | ___unset___ | Version of Orion installed. When supplied, adds required privacy config items and requires `orion_config_dir` and `orion_key_name` to be set |
+| `orion_config_dir` | ___unset___ | Path to Orion configuration directory |
+| `orion_key_name` | ___unset___ | Name of the Node Key |
 
 
 ### Example Playbook
