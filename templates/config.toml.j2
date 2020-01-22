@@ -59,3 +59,10 @@ metrics-port={{besu_metrics_port}}
 # bootnodes
 bootnodes={{besu_bootnodes}}
 {% endif %}
+
+{% if orion_version is defined %}
+# Orion
+privacy-enabled=true
+privacy-url="http://127.0.0.1:8888"
+privacy-public-key-file="{{ orion_config_dir }}/{{ orion_key_name }}.pub"
+{% endif %}
