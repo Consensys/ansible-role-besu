@@ -1,4 +1,4 @@
-/var/log/besu/*.log {
+{{ besu_log_dir }}/*.log {
     rotate 14
     notifempty
     missingok
