@@ -52,6 +52,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_sync_mode` | FAST | Specifies the synchronization mode. Other values are 'FULL' |
 | `besu_log_level` | INFO | The log level to use. Other log levels are 'OFF', 'FATAL', 'WARN', 'INFO', 'DEBUG', 'TRACE', 'ALL' |
 | `besu_p2p_port` | 30303 | Specifies the P2P listening ports (UDP and TCP). Ports must be exposed appropriately |
+| `besu_min_gas` | 1000 | The minimum price that a transaction offers for it to be included in a mined block |
 | `besu_rpc_http_enabled` | true | Enabled the HTTP JSON-RPC service |
 | `besu_rpc_http_host` | 0.0.0.0 | Specifies the host on which HTTP JSON-RPC listens |
 | `besu_rpc_http_port` | 8545 | Specifies the port on which HTTP JSON-RPC listens |
@@ -67,7 +68,11 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_metrics_host` | 0.0.0.0 | Specifies the host on which Prometheus accesses Besu metrics. The metrics server respects the `besu_whitelist` option |
 | `besu_metrics_port` | 9545 | Specifies the port on which Prometheus accesses Besu metrics |
 | `besu_bootnodes` | [] | List of comma-separated enode URLs for P2P discovery bootstrap. When connecting to MainNet or public testnets, the default is a predefined list of enode URLs |
-| `besu_host_whitelist` | ["*"] | Comma-separated list of hostnames to allow access to the JSON-RPC API. By default, access from localhost and 127.0.0.1 is accepted. |
+| `besu_host_whitelist` | `["*"]` | Comma-separated list of hostnames to allow access to the JSON-RPC API. By default, access from localhost and 127.0.0.1 is accepted. |
+| `besu_permissions_accounts_config_file` | ___unset___ | Path to the [local accounts permissioning file](http://besu.hyperledger.org/en/stable/HowTo/Limit-Access/Local-Permissioning/#permissions-configuration-file) |
+| `besu_permissions_nodes_config_file` | ___unset___ | Path to the [local nodes permissioning file](http://besu.hyperledger.org/en/stable/HowTo/Limit-Access/Local-Permissioning/#permissions-configuration-file) |
+| `besu_permissions_accounts_contract_address` | ___unset___ | The contract address for onchain accounts permissioning |
+| `besu_permissions_nodes_contract_address` | ___unset___ | The contract address for onchain nodes permissioning |
 | `besu_cmdline_args` | "" | Command line args that are passed in as overrides |
 | `besu_env_opts` | "" | Environmental variable BESU_OPTS that gets passed to the JVM. eg: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 |
 | `orion_version` | ___unset___ | Version of Orion installed. When supplied, adds required privacy config items and requires `orion_config_dir` and `orion_key_name` to be set |
