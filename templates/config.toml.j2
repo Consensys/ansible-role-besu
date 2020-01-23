@@ -55,6 +55,30 @@ metrics-enabled=true
 metrics-host="{{besu_metrics_host}}"
 metrics-port={{besu_metrics_port}}
 
+{% if besu_permissions_accounts_config_file is defined %}
+# local account permissions
+permissions-accounts-config-file-enabled=true
+permissions-accounts-config-file="{{ besu_permissions_accounts_config_file }}"
+{% endif %}
+
+{% if besu_permissions_nodes_config_file is defined %}
+# local node permissions
+permissions-nodes-config-file-enabled=true
+permissions-nodes-config-file="{{ besu_permissions_nodes_config_file }}"
+{% endif %}
+
+{% if besu_permissions_accounts_contract_address is defined %}
+# onchain account permissions
+permissions-accounts-contract-enabled=true
+permissions-accounts-contract-address="{{ besu_permissions_accounts_contract_address }}"
+{% endif %}
+
+{% if besu_permissions_nodes_contract_address is defined %}
+# onchain node permissions
+permissions-nodes-contract-enabled=true
+permissions-nodes-contract-address="{{ besu_permissions_nodes_contract_address }}"
+{% endif %}
+
 {% if besu_bootnodes|length > 0 %}
 # bootnodes
 bootnodes={{besu_bootnodes}}
