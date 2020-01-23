@@ -52,6 +52,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_sync_mode` | FAST | Specifies the synchronization mode. Other values are 'FULL' |
 | `besu_log_level` | INFO | The log level to use. Other log levels are 'OFF', 'FATAL', 'WARN', 'INFO', 'DEBUG', 'TRACE', 'ALL' |
 | `besu_p2p_port` | 30303 | Specifies the P2P listening ports (UDP and TCP). Ports must be exposed appropriately |
+| `besu_min_gas` | 1000 | The minimum price that a transaction offers for it to be included in a mined block |
 | `besu_rpc_http_enabled` | true | Enabled the HTTP JSON-RPC service |
 | `besu_rpc_http_host` | 0.0.0.0 | Specifies the host on which HTTP JSON-RPC listens |
 | `besu_rpc_http_port` | 8545 | Specifies the port on which HTTP JSON-RPC listens |
