@@ -1,8 +1,12 @@
 ---
-- name: Ensure we have besu_version
-  fail:
-    msg: You must set "besu_version" for this role to run
-  when: besu_version is not defined
+- name: Ensure we have sane configuration
+  block:
+    - fail:
+        msg: You must set "besu_version" for this role to run
+      when: besu_version is not defined
+    - fail:
+        msg: Orion and Fast-Sync are incompatible
+      when: orion_version is defined and besu_sync_mode == "FAST"
 
 - name: Include OS and distribution specific variables
   include_vars: "{{ item }}"
