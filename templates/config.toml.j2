@@ -2,8 +2,8 @@
 data-path="{{besu_data_dir}}"
 logging="{{besu_log_level}}"
 
-# private_key
 {% if besu_node_private_key_file != "" %}
+# private_key
 node-private-key-file="{{besu_node_private_key_file}}"
 {% endif %}
 
@@ -21,25 +21,35 @@ host-whitelist=[{{besu_host_whitelist|map('to_json')|join(',')}}]
 identity="{{ besu_identity }}"
 {% endif %}
 
-# rpc
+{% if besu_miner_enabled|bool == True %}
+# miner
+miner-enabled=true
+miner-coinbase="{{besu_miner_coinbase}}"
+{% if besu_miner_extra_data != "" %}
+miner-extra-data="{{besu_miner_extra_data}}"
+{% endif %}
+{% endif %}
+
 {% if besu_rpc_http_enabled|bool == True %}
-rpc-http-enabled={{besu_rpc_http_enabled}}
+# rpc
+rpc-http-enabled=true
 rpc-http-host="{{besu_rpc_http_host}}"
 rpc-http-port={{besu_rpc_http_port}}
 rpc-http-api=[{{besu_rpc_http_api|map('to_json')|join(',')}}]
 rpc-http-cors-origins=[{{besu_rpc_http_cors_origins|map('to_json')|join(',')}}]
 {% endif %}
 
-# ws
+
 {% if besu_rpc_ws_enabled|bool == True %}
-rpc-ws-enabled={{besu_rpc_ws_enabled}}
+# ws
+rpc-ws-enabled=true
 rpc-ws-host="{{besu_rpc_ws_host}}"
 rpc-ws-port={{besu_rpc_ws_port}}
 {% endif %}
 
-# graphql
 {% if besu_graphql_http_enabled|bool == True %}
-graphql-http-enabled={{besu_graphql_http_enabled}}
+# graphql
+graphql-http-enabled=true
 graphql-http-host="{{besu_graphql_http_host}}"
 graphql-http-port={{besu_graphql_http_port}}
 graphql-http-cors-origins=[{{besu_graphql_http_cors_origins|map('to_json')|join(',')}}]

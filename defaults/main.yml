@@ -34,6 +34,9 @@ besu_sync_mode: FAST
 besu_log_level: INFO
 besu_p2p_port: 30303
 besu_min_gas: 1000
+besu_miner_extra_data: ""
+besu_miner_coinbase: 0x
+besu_miner_enabled: "false"
 besu_rpc_http_enabled: "true"
 besu_rpc_http_host: 0.0.0.0
 besu_rpc_http_port: 8545
