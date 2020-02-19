@@ -53,6 +53,9 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_log_level` | INFO | The log level to use. Other log levels are 'OFF', 'FATAL', 'WARN', 'INFO', 'DEBUG', 'TRACE', 'ALL' |
 | `besu_p2p_port` | 30303 | Specifies the P2P listening ports (UDP and TCP). Ports must be exposed appropriately |
 | `besu_min_gas` | 1000 | The minimum price that a transaction offers for it to be included in a mined block |
+| `besu_miner_enabled` | false | Enables mining when the node is started |
+| `besu_miner_coinbase` | 0x | Account to which mining rewards are paid |
+| `besu_miner_extra_data` | "" | A hex string representing the 32 bytes to be included in the extra data field of a mined block. |
 | `besu_rpc_http_enabled` | true | Enabled the HTTP JSON-RPC service |
 | `besu_rpc_http_host` | 0.0.0.0 | Specifies the host on which HTTP JSON-RPC listens |
 | `besu_rpc_http_port` | 8545 | Specifies the port on which HTTP JSON-RPC listens |
