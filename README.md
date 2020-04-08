@@ -39,6 +39,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_node_private_key_file` | "" | Path for node private key, if supplied. This needs to include the node key file name and path like so `/home/me/me_node/myPrivateKey`. If not supplied Besu will create one automatically |
 | `besu_data_dir` | /opt/besu/data | Path for data directory|
 | `besu_log_dir` | /var/log/besu | Path for logs |
+| `besu_log4j_config_file` | "" | Absolute path for a custom log4j config file |
 | `besu_profile_file` | /etc/profile.d/besu-path.sh | Path to allow loading Besu into the system PATH |
 | `besu_managed_service` | true | Enables a systemd service (or launchd if on Darwin) |
 | `besu_launchd_dir` | /Library/LaunchAgents | The default launchd directory  |
