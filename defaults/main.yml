@@ -16,6 +16,7 @@ besu_config_dir: "/etc/besu"
 besu_config_template: "config.toml.j2"
 besu_data_dir: "{{ besu_base_dir }}/data"
 besu_log_dir: "/var/log/besu"
+besu_log4j_config_file: ""
 besu_profile_file: "/etc/profile.d/besu-path.sh"
 
 # Managed service config
