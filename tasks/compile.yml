@@ -10,12 +10,6 @@
   register: jdk_version
   ignore_errors: true
 
-- debug:
-    msg: "Failed? {{ jdk_version is failed }}"
-
-- debug:
-    msg: "version result: {{ jdk_version.stdout }}"
-
 - name: Ensure JDK is installed
   fail:
     msg: "You must have JDK 11 or later installed. {{ 'No version found.' if jdk_version is failed else 'Found version ' + jdk_version.stdout }}"
