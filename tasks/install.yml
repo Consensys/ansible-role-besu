@@ -55,7 +55,6 @@
       - '1'
   become: true
   register: extract_src
-  when: 
 
 - name: Set updated optionally to trigger a systemd restart at the end
   set_fact:
