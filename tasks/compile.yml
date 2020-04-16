@@ -19,7 +19,7 @@
   git:
     repo: "{{ besu_git_repo }}"
     dest: '/tmp/besu'
-    refspec: "{{ besu_git_refspec }}"
+    version: "{{ besu_git_commit }}"
 
 - name: Build Besu
   shell: ./gradlew --no-daemon --parallel clean assemble
