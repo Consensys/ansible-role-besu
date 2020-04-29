@@ -3,7 +3,7 @@
   block:
     - fail:
         msg: You must set "besu_version" for this role to run when not building Besu from source
-      when: besu_version is not defined and (besu_build_from_source is not defined or not besu_build_from_source)
+      when: besu_version is not defined and not besu_build_from_source
     - fail:
         msg: The vars "besu_version" and "besu_build_from_source" are incompatible. If trying to build a specific git refspec, use "besu_git_refspec" instead of besu_version.
       when: besu_version is defined and besu_build_from_source
