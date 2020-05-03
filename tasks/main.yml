@@ -2,8 +2,11 @@
 - name: Ensure we have sane configuration
   block:
     - fail:
-        msg: You must set "besu_version" for this role to run
-      when: besu_version is not defined
+        msg: You must set "besu_version" for this role to run when not building Besu from source
+      when: besu_version is not defined and not besu_build_from_source
+    - fail:
+        msg: The vars "besu_version" and "besu_build_from_source" are incompatible. If trying to build a specific git refspec, use "besu_git_refspec" instead of besu_version.
+      when: besu_version is defined and besu_build_from_source
     - fail:
         msg: Orion and Fast-Sync are incompatible
       when: orion_version is defined and besu_sync_mode == "FAST"
@@ -15,6 +18,10 @@
         - "{{ ansible_distribution|lower }}.yml"
         - "{{ ansible_os_family|lower }}.yml"
       skip: true
+
+- name: Compile besu
+  include_tasks: "compile.yml"
+  when: besu_build_from_source
 
 - name: Install besu
   include_tasks: "install.yml"

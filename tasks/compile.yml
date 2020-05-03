@@ -1,0 +1,39 @@
+---
+
+- name: Ensure we have sane configuration
+  fail:
+    msg: You must set "besu_git_repo" for this role to run when "besu_build_from_source" is enabled
+  when: not (besu_git_repo is defined) or besu_git_repo|length == 0
+
+- name: Check JDK version
+  shell: javac -version | egrep -o '[0-9]+\.[0-9]+\.[0-9]+'
+  register: jdk_version
+  ignore_errors: true
+
+- name: Ensure JDK is installed
+  fail:
+    msg: "You must have JDK 11 or later installed. {{ 'No version found.' if jdk_version is failed else 'Found version ' + jdk_version.stdout }}"
+  when: jdk_version.stdout is version('11.0.0', '<') 
+
+- name: Clone Besu Sources
+  git:
+    repo: "{{ besu_git_repo }}"
+    dest: '/tmp/besu'
+    version: "{{ besu_git_commit }}"
+
+- name: Build Besu
+  shell: ./gradlew --no-daemon --parallel clean assemble
+  args:
+    chdir: /tmp/besu
+
+- name: Get Besu Version
+  shell: "awk '/version=/ { gsub(/version=/,\"\"); print $1 }' gradle.properties"
+  args:
+    chdir: /tmp/besu
+  register: besu_version_cmd
+
+- name: Set Besu Version Fact
+  set_fact:
+    besu_version: "{{ besu_version_cmd.stdout }}"
+
+

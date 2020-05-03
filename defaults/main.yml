@@ -7,6 +7,11 @@ besu_group: "{{ besu_user }}"
 # Version to install
 besu_download_url: "https://bintray.com/hyperledger-org/besu-repo/download_file?file_path=besu-{{ besu_version }}.tar.gz"
 
+# Building from source
+besu_build_from_source: false
+besu_git_repo: "https://github.com/hyperledger/besu.git"
+besu_git_commit: "master"
+
 # Directory paths
 besu_base_dir: "/opt/besu"
 besu_install_dir: "{{ besu_base_dir }}/besu-{{ besu_version }}"
