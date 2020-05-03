@@ -1,13 +1,19 @@
 ---
 - name: Ensure we have sane configuration
   block:
-    - fail:
+    - name: Check besu_version is correct
+      fail:
         msg: You must set "besu_version" for this role to run when not building Besu from source
       when: besu_version is not defined and not besu_build_from_source
-    - fail:
-        msg: The vars "besu_version" and "besu_build_from_source" are incompatible. If trying to build a specific git refspec, use "besu_git_refspec" instead of besu_version.
+    - name: Check besu_version is not set when besu_build_from_source is set
+      fail:
+        msg: >-
+          The vars "besu_version" and "besu_build_from_source" are
+          incompatible. If trying to build a specific git refspec, use
+          "besu_git_refspec" instead of besu_version.
       when: besu_version is defined and besu_build_from_source
-    - fail:
+    - name: Check orion_version is not set when fast sync is enabled
+      fail:
         msg: Orion and Fast-Sync are incompatible
       when: orion_version is defined and besu_sync_mode == "FAST"
 

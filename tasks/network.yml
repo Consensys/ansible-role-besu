@@ -1,7 +1,10 @@
 ---
 - name: Get the default ipv4 address
   set_fact:
-    besu_default_ip: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] if hostvars[inventory_hostname]['ansible_default_ipv4']['address'] is defined else '127.0.0.1' }}"
+    besu_default_ip: >-
+      {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] if
+      hostvars[inventory_hostname]['ansible_default_ipv4']['address'] is
+      defined else '127.0.0.1' }}
     besu_aws_public_ip: ""
     besu_gcp_public_ip: ""
     besu_azure_public_ip: ""

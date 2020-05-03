@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  author: PegaSysEng 
+  author: PegaSysEng
   role_name: hyperledger-besu
   description: Besu is an open-source java enterprise ethereum client
   company: PegaSysEng
