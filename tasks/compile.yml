@@ -8,12 +8,13 @@
 - name: Check JDK version
   shell: javac -version | egrep -o '[0-9]+\.[0-9]+\.[0-9]+'
   register: jdk_version
+  changed_when: false
   ignore_errors: true
 
 - name: Ensure JDK is installed
   fail:
     msg: "You must have JDK 11 or later installed. {{ 'No version found.' if jdk_version is failed else 'Found version ' + jdk_version.stdout }}"
-  when: jdk_version.stdout is version('11.0.0', '<') 
+  when: jdk_version.stdout is version('11.0.0', '<')
 
 - name: Clone Besu Sources
   git:
@@ -22,15 +23,17 @@
     version: "{{ besu_git_commit }}"
 
 - name: Build Besu
-  shell: ./gradlew --no-daemon --parallel clean assemble
+  command: ./gradlew --no-daemon --parallel clean assemble
   args:
     chdir: /tmp/besu
+  changed_when: true
 
 - name: Get Besu Version
   shell: "awk '/version=/ { gsub(/version=/,\"\"); print $1 }' gradle.properties"
   args:
     chdir: /tmp/besu
   register: besu_version_cmd
+  changed_when: false
 
 - name: Set Besu Version Fact
   set_fact:
