@@ -92,7 +92,7 @@ permissions-nodes-contract-address="{{ besu_permissions_nodes_contract_address }
 
 {% if besu_bootnodes|length > 0 %}
 # bootnodes
-bootnodes={{besu_bootnodes}}
+bootnodes=[{{besu_bootnodes|map('to_json')|join(',')}}]
 {% endif %}
 
 {% if orion_version is defined %}
