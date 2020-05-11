@@ -12,7 +12,7 @@ Environment=LOG4J_CONFIGURATION_FILE={{ besu_log4j_config_file }}
 Environment=BESU_OPTS={{ besu_env_opts }}
 Type=simple
 {% if besu_cmdline_args %}
-ExecStart=/bin/sh -c "{{ besu_current_dir }}/bin/besu --config-file={{ besu_config_dir }}/config.toml {{ besu_cmdline_args }} >> {{besu_log_dir}}/besu.log 2>&1"
+ExecStart=/bin/sh -c "{{ besu_current_dir }}/bin/besu --config-file={{ besu_config_dir }}/config.toml {{ besu_cmdline_args|quote }} >> {{besu_log_dir}}/besu.log 2>&1"
 {% else %}
 ExecStart=/bin/sh -c "{{ besu_current_dir }}/bin/besu --config-file={{ besu_config_dir }}/config.toml >> {{besu_log_dir}}/besu.log 2>&1"
 {% endif %}
