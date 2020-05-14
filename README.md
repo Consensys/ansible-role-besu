@@ -51,6 +51,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_identity` | ___unset___  | Configuration of Identity in the Client ID |
 | `besu_host_ip` | "" | The host IP that Besu uses for the P2P network. This specifies the host on which P2P listens |
 | `besu_default_ip` | "{{ default(ansible_host) \| default('127.0.0.1') }}" | The fallback default for `besu_host_ip` |
+| `besu_max_peers` | ___unset___ | The maximum number of P2P connections you can establish |
 | `besu_network` | mainnet | The network that this node will join. Other values are 'ropsten', 'rinkeby', 'goerli', 'dev' and 'custom' |
 | `besu_genesis_path` | ___unset___ | The path to the genesis file, only valid when `besu_network` is `custom` |
 | `besu_sync_mode` | FAST | Specifies the synchronization mode. Other values are 'FULL' |
@@ -81,7 +82,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_permissions_accounts_contract_address` | ___unset___ | The contract address for onchain accounts permissioning |
 | `besu_permissions_nodes_contract_address` | ___unset___ | The contract address for onchain nodes permissioning |
 | `besu_cmdline_args` | "" | Command line args that are passed in as overrides |
-| `besu_env_opts` | "" | Environmental variable BESU_OPTS that gets passed to the JVM. eg: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 |
+| `besu_env_opts` | [] | Settings passed to the JVM through `BESU_OPTS` environment variable. eg: `-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005` |
 | `orion_version` | ___unset___ | Version of Orion installed. When supplied, adds required privacy config items and requires `orion_config_dir` and `orion_key_name` to be set |
 | `orion_config_dir` | ___unset___ | Path to Orion configuration directory |
 | `orion_key_name` | ___unset___ | Name of the Node Key |
