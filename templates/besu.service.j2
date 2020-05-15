@@ -9,7 +9,7 @@ Environment=HOME=/home/{{ besu_user }}
 {% if besu_log4j_config_file %}
 Environment=LOG4J_CONFIGURATION_FILE={{ besu_log4j_config_file }}
 {% endif %}
-{% if besu_env_opts|bool %}
+{% if besu_env_opts %}
 Environment='BESU_OPTS={{ besu_env_opts|besu_opts_format }}'
 {% endif %}
 Type=simple
