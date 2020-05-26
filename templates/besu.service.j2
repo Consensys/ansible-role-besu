@@ -6,11 +6,11 @@ After=syslog.target network.target
 User={{ besu_user }}
 Group={{ besu_group }}
 Environment=HOME=/home/{{ besu_user }}
-{% if besu_log4j_config_file %}
+{% if besu_log4j_config_file != "" %}
 Environment=LOG4J_CONFIGURATION_FILE={{ besu_log4j_config_file }}
 {% endif %}
 {% if besu_env_opts %}
-Environment='BESU_OPTS={{ besu_env_opts|besu_opts_format }}'
+Environment='BESU_OPTS={{besu_env_opts|map('to_json')|join(' ')}}'
 {% endif %}
 Type=simple
 {% if besu_cmdline_args %}

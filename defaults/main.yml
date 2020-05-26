@@ -61,6 +61,8 @@ besu_bootnodes: []
 besu_host_whitelist: ["*"]
 besu_cmdline_args: ""
 besu_env_opts: []
-
+besu_privacy_enabled: "false"
+besu_privacy_url: "http://127.0.0.1:8888"
+besu_privacy_public_key_file: ""
 # internal state to maintain idempotency
 besu_state_updates: []

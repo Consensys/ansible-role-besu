@@ -103,9 +103,9 @@ bootnodes=[{{besu_bootnodes|map('to_json')|join(',')}}]
 {% endif %}
 {% endif %}
 
-{% if orion_version is defined %}
+{% if besu_privacy_enabled|bool == True %}
 # Orion
 privacy-enabled=true
-privacy-url="http://127.0.0.1:8888"
-privacy-public-key-file="{{ orion_config_dir }}/{{ orion_key_name }}.pub"
+privacy-url="{{besu_privacy_url}}"
+privacy-public-key-file="{{besu_privacy_public_key_file}}"
 {% endif %}

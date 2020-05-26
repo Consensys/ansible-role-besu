@@ -12,10 +12,10 @@
           incompatible. If trying to build a specific git refspec, use
           "besu_git_refspec" instead of besu_version.
       when: besu_version is defined and besu_build_from_source
-    - name: Check orion_version is not set when fast sync is enabled
+    - name: Check besu_privacy_enabled is not set when fast sync is enabled
       fail:
         msg: Orion and Fast-Sync are incompatible
-      when: orion_version is defined and besu_sync_mode == "FAST"
+      when: ( besu_privacy_enabled|bool == True ) and ( besu_sync_mode == "FAST" )
 
 - name: Include OS and distribution specific variables
   include_vars: "{{ item }}"
