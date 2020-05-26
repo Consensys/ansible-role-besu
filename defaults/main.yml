@@ -60,7 +60,7 @@ besu_metrics_port: 9545
 besu_bootnodes: []
 besu_host_whitelist: ["*"]
 besu_cmdline_args: ""
-besu_env_opts: []
+besu_env_opts: ""
 
 # internal state to maintain idempotency
 besu_state_updates: []
