@@ -108,5 +108,8 @@ bootnodes=[{{besu_bootnodes|map('to_json')|join(',')}}]
 privacy-enabled=true
 privacy-url="{{besu_privacy_url}}"
 privacy-public-key-file="{{besu_privacy_public_key_file}}"
+{% if besu_privacy_marker_tx_signing_key_file != "" %}
+privacy-marker-transaction-signing-key-file="{{besu_privacy_marker_tx_signing_key_file}}"
+{% endif %}
 {% endif %}
 

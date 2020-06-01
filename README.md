@@ -86,6 +86,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_privacy_enabled` | false | Enable privacy |
 | `besu_privacy_url` | "" | URL to contact Orion on including port eg: `http://localhost:8888` |
 | `besu_privacy_public_key_file` | ""| Path to Orion public key |
+| `besu_privacy_marker_tx_signing_key_file` | "" | Path of the private key file used to sign Privacy Marker Transactions. If you do not specify this option, Besu signs each transaction with a different randomly generated key. |
 
 ### Example Playbook
 
