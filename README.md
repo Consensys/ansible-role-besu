@@ -82,11 +82,11 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_permissions_accounts_contract_address` | ___unset___ | The contract address for onchain accounts permissioning |
 | `besu_permissions_nodes_contract_address` | ___unset___ | The contract address for onchain nodes permissioning |
 | `besu_cmdline_args` | "" | Command line args that are passed in as overrides |
-| `besu_env_opts` | "" | Settings passed to the JVM through `BESU_OPTS` environment variable. eg: `-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005` |
-| `orion_version` | ___unset___ | Version of Orion installed. When supplied, adds required privacy config items and requires `orion_config_dir` and `orion_key_name` to be set |
-| `orion_config_dir` | ___unset___ | Path to Orion configuration directory |
-| `orion_key_name` | ___unset___ | Name of the Node Key |
-
+| `besu_env_opts` | [] | Settings passed to the JVM through `BESU_OPTS` environment variable. eg: `[-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005]s` |
+| `besu_privacy_enabled` | false | Enable privacy |
+| `besu_privacy_url` | "" | URL to contact Orion on including port eg: `http://localhost:8888` |
+| `besu_privacy_public_key_file` | ""| Path to Orion public key |
+| `besu_privacy_marker_tx_signing_key_file` | "" | Path of the private key file used to sign Privacy Marker Transactions. If you do not specify this option, Besu signs each transaction with a different randomly generated key. |
 
 ### Example Playbook
 
