@@ -94,13 +94,8 @@ permissions-nodes-contract-address="{{ besu_permissions_nodes_contract_address }
 {% endif %}
 
 {% if besu_bootnodes|length > 0 %}
-{% if besu_bootnodes is string %}
-# bootnodes
-bootnodes={{besu_bootnodes}}
-{% else %}
 # bootnodes
 bootnodes=[{{besu_bootnodes|map('to_json')|join(',')}}]
-{% endif %}
 {% endif %}
 
 {% if besu_privacy_enabled|bool == True %}
