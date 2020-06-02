@@ -38,5 +38,3 @@
 - name: Set Besu Version Fact
   set_fact:
     besu_version: "{{ besu_version_cmd.stdout }}"
-
-
