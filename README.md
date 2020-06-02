@@ -67,6 +67,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_rpc_http_api` | ["ADMIN","DEBUG","NET","ETH","MINER","WEB3"] | Comma-separated APIs to enable on the HTTP JSON-RPC channel. When you use this option, the `besu_rpc_http_enabled` option must also be enabled |
 | `besu_rpc_http_cors_origins` | ["all"] | Comma separated origin domain URLs for CORS validation |
 | `besu_rpc_ws_enabled` | true | Enabled the WebSockets service |
+| `besu_rpc_ws_api` | ["NET", "ETH", "WEB3"] | Comma-separated APIs to enable on the HTTP JSON-RPC channel. When you use this option, the `besu_rpc_ws_enabled` option must also be enabled |
 | `besu_rpc_ws_host` | 0.0.0.0 | Specifies the host on which WebSockets listens |
 | `besu_rpc_ws_port` | 8546 | Specifies Websockets JSON-RPC listening port (TCP). Port must be exposed appropriately |
 | `besu_graphql_http_enabled` | true | Enabled the HTTP JSON-RPC service |

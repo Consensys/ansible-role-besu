@@ -43,6 +43,7 @@ rpc-http-cors-origins=[{{besu_rpc_http_cors_origins|map('to_json')|join(',')}}]
 {% if besu_rpc_ws_enabled|bool == True %}
 # ws
 rpc-ws-enabled=true
+rpc-ws-api=[{{besu_rpc_ws_api|map('to_json')|join(',')}}]
 rpc-ws-host="{{besu_rpc_ws_host}}"
 rpc-ws-port={{besu_rpc_ws_port}}
 {% endif %}
