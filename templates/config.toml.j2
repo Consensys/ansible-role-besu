@@ -7,7 +7,7 @@ logging="{{besu_log_level}}"
 node-private-key-file="{{besu_node_private_key_file}}"
 {% endif %}
 
-{% if besu_network.lower() in ["mainnet", "rinkeby", "goerli", "ropsten", "dev"] %}
+{% if besu_network.lower() in ["mainnet", "rinkeby", "goerli", "ropsten", "classic", "mordor", "kotti", "dev"] %}
 network="{{besu_network}}"
 {% else %}
 genesis-file="{{ besu_genesis_path }}"
