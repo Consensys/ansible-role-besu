@@ -25,9 +25,10 @@ identity="{{ besu_identity }}"
 # miner
 miner-enabled=true
 miner-coinbase="{{besu_miner_coinbase}}"
+{% endif %}
+
 {% if besu_miner_extra_data != "" %}
 miner-extra-data="{{besu_miner_extra_data}}"
-{% endif %}
 {% endif %}
 
 {% if besu_rpc_http_enabled|bool == True %}
