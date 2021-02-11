@@ -36,7 +36,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_git_commit` | master | The git commit to use when building Besu from source. Can be a branchname, commit hash, or anything that's legal to be used as an argument to `git checkout`. Only used if `besu_build_from_source` is `true`. |
 | `besu_user` | besu | Besu user |
 | `besu_group` | besu | Besu group |
-| `besu_download_url` | https://bintray.com/hyperledger-org/besu-repo/download_file?file_path=besu-{{ besu_version }}.tar.gz | The download tar.gz file used. You can use this if you need to retrieve besu from a custom location such as an internal repository. |
+| `besu_download_url` | https://hyperledger.jfrog.io/artifactory/besu-binaries/besu/{{ besu_version }}/besu-{{ besu_version }}.tar.gz | The download tar.gz file used. You can use this if you need to retrieve besu from a custom location such as an internal repository. |
 | `besu_install_dir` | /opt/besu | Path to install to  |
 | `besu_config_dir` | /etc/besu | Path for default configuration |
 | `besu_node_private_key_file` | "" | Path for node private key, if supplied. This needs to include the node key file name and path like so `/home/me/me_node/myPrivateKey`. If not supplied Besu will create one automatically |
