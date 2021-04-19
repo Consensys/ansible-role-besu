@@ -1,9 +1,9 @@
 ---
 galaxy_info:
-  author: PegaSysEng
+  author: Consensys
   role_name: hyperledger-besu
   description: Besu is an open-source java enterprise ethereum client
-  company: PegaSysEng
+  company: Consensys
   license: license (Apache)
   min_ansible_version: 2.6
   platforms:

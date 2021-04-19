@@ -31,7 +31,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | Name           | Default Value | Description                        |
 | -------------- | ------------- | -----------------------------------|
 | `besu_build_from_source` | ___unset___ |  When set to `true`, Besu is build from git sources. See also `besu_git_repo` and `besu_git_commit` |
-| `besu_version` | ___unset___ |  __REQUIRED__ if `besu_build_from_source` is false. Version of Besu to install and run. All available versions are listed on our Besu [solutions](https://pegasys.tech/solutions/hyperledger-besu/) page |
+| `besu_version` | ___unset___ |  __REQUIRED__ if `besu_build_from_source` is false. Version of Besu to install and run. All available versions are listed on our Besu [solutions](https://github.com/hyperledger/besu/releases) page |
 | `besu_git_repo` | https://github.com/hyperledger/besu.git | The URL to use when cloning besu sources. Only necessary when `besu_build_from_source` is `true`. |
 | `besu_git_commit` | master | The git commit to use when building Besu from source. Can be a branchname, commit hash, or anything that's legal to be used as an argument to `git checkout`. Only used if `besu_build_from_source` is `true`. |
 | `besu_user` | besu | Besu user |
@@ -94,11 +94,11 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 1. Default setup:
 Install the role from galaxy
 ```
-ansible-galaxy install pegasyseng.hyperledger_besu
+ansible-galaxy install consensys.hyperledger_besu
 ```
 
 Create a requirements.yml with the following:
-Replace `x.y.z` below with the version you would like to use from the Besu [solutions](https://pegasys.tech/solutions/hyperledger-besu/) page
+Replace `x.y.z` below with the version you would like to use from the Besu [solutions](https://github.com/hyperledger/besu/releases) page
 ```
 ---
 - hosts: localhost
@@ -106,7 +106,7 @@ Replace `x.y.z` below with the version you would like to use from the Besu [solu
   force_handlers: True
 
   roles:
-  - role: pegasyseng.hyperledger_besu
+  - role: consensys.hyperledger_besu
     vars:
       besu_version: x.y.z
 
@@ -121,11 +121,11 @@ ansible-playbook -v /path/to/requirements.yml
 2. Install via github
 
 ```
-ansible-galaxy install git+https://github.com/pegasyseng/ansible-role-besu.git
+ansible-galaxy install git+https://github.com/consensys/ansible-role-besu.git
 ```
 
 Create a requirements.yml with the following:
-Replace `x.y.z` below with the version you would like to use from the Besu [solutions](https://pegasys.tech/solutions/hyperledger-besu/) page
+Replace `x.y.z` below with the version you would like to use from the Besu [solutions](https://github.com/hyperledger/besu/releases) page
 ```
 ---
 - hosts: localhost
@@ -152,4 +152,4 @@ Apache
 
 ### Author Information
 
-PegaSysEng, 2019
+Consensys, 2021
