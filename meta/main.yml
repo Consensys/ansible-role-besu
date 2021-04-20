@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Consensys
-  role_name: hyperledger-besu
+  role_name: hyperledger_besu
   description: Besu is an open-source java enterprise ethereum client
   company: Consensys
   license: license (Apache)
