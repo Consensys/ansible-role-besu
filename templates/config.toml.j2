@@ -111,3 +111,7 @@ privacy-marker-transaction-signing-key-file="{{besu_privacy_marker_tx_signing_ke
 {% endif %}
 {% endif %}
 
+{% if besu_xdns_enabled|bool == True %}
+Xdns-enabled=true
+Xdns-update-enabled=true
+{% endif %}

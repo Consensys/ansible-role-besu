@@ -63,6 +63,7 @@ besu_host_whitelist: ["*"]
 besu_cmdline_args: []
 besu_env_opts: []
 besu_permissions_nodes_contract_version: 2
+besu_xdns_enabled: "false"
 
 # privacy
 besu_privacy_enabled: "false"
