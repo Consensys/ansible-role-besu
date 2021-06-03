@@ -89,6 +89,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_privacy_public_key_file` | ""| Path to Orion public key |
 | `besu_privacy_marker_tx_signing_key_file` | "" | Path of the private key file used to sign Privacy Marker Transactions. If you do not specify this option, Besu signs each transaction with a different randomly generated key. |
 | `besu_xdns_enabled` | "false" | DNS support with a trusted DNS provider in private networks because of limitations where IP addresses can change. For example, when using Kubernetes pods |
+| `besu_target_gas_limit` | ___unset___  | Configuration of the target gas limit |
 
 
 ### Example Playbook
