@@ -7,6 +7,11 @@ logging="{{besu_log_level}}"
 node-private-key-file="{{besu_node_private_key_file}}"
 {% endif %}
 
+{% if besu_target_gas_limit is defined %}
+# target gas limit
+target-gas-limit="{{ besu_target_gas_limit }}"
+{% endif %}
+
 {% if besu_network.lower() in ["mainnet", "rinkeby", "goerli", "ropsten", "classic", "mordor", "kotti", "dev"] %}
 network="{{besu_network}}"
 {% else %}
