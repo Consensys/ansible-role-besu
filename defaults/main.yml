@@ -64,6 +64,7 @@ besu_cmdline_args: []
 besu_env_opts: []
 besu_permissions_nodes_contract_version: 2
 besu_xdns_enabled: "false"
+besu_static_nodes_file=""
 
 # privacy
 besu_privacy_enabled: "false"
