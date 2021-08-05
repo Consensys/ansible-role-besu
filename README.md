@@ -77,6 +77,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_metrics_host` | 0.0.0.0 | Specifies the host on which Prometheus accesses Besu metrics. The metrics server respects the `besu_whitelist` option |
 | `besu_metrics_port` | 9545 | Specifies the port on which Prometheus accesses Besu metrics |
 | `besu_bootnodes` | [] | List of comma-separated enode URLs for P2P discovery bootstrap. When connecting to MainNet or public testnets, the default is a predefined list of enode URLs |
+| `besu_static_nodes_file` | [] | Path to the [static nodes file](https://besu.hyperledger.org/en/stable/Reference/CLI/CLI-Syntax/#static-nodes-file) |
 | `besu_host_whitelist` | `["*"]` | Comma-separated list of hostnames to allow access to the JSON-RPC API. By default, access from localhost and 127.0.0.1 is accepted. |
 | `besu_permissions_accounts_config_file` | ___unset___ | Path to the [local accounts permissioning file](http://besu.hyperledger.org/en/stable/HowTo/Limit-Access/Local-Permissioning/#permissions-configuration-file) |
 | `besu_permissions_nodes_config_file` | ___unset___ | Path to the [local nodes permissioning file](http://besu.hyperledger.org/en/stable/HowTo/Limit-Access/Local-Permissioning/#permissions-configuration-file) |
