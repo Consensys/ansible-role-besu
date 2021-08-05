@@ -108,7 +108,7 @@ bootnodes=[{{besu_bootnodes|map('to_json')|join(',')}}]
 
 {% if besu_static_nodes_file != "" %}
 # static-nodes
-static_nodes_file="{{ besu_static_nodes_file }}"
+static-nodes-file="{{ besu_static_nodes_file }}"
 {% endif %}
 
 {% if besu_privacy_enabled|bool == True %}
