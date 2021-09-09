@@ -54,6 +54,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_max_peers` | ___unset___ | The maximum number of P2P connections you can establish |
 | `besu_network` | mainnet | The network that this node will join. Other values are 'ropsten', 'rinkeby', 'goerli', 'classic', 'mordor', 'kotti', 'dev' and 'custom' |
 | `besu_genesis_path` | ___unset___ | The path to the genesis file, only valid when `besu_network` is `custom` |
+| `besu_required_blocks` | [] | Requires a peer with the specified block number to have the specified hash when connecting, or Besu rejects that peer |
 | `besu_sync_mode` | FAST | Specifies the synchronization mode. Other values are 'FULL' |
 | `besu_log_level` | INFO | The log level to use. Other log levels are 'OFF', 'FATAL', 'WARN', 'INFO', 'DEBUG', 'TRACE', 'ALL' |
 | `besu_p2p_port` | 30303 | Specifies the P2P listening ports (UDP and TCP). Ports must be exposed appropriately |
