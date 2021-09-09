@@ -7,6 +7,10 @@ logging="{{besu_log_level}}"
 node-private-key-file="{{besu_node_private_key_file}}"
 {% endif %}
 
+{% if besu_required_blocks|length > 0  %}
+required-blocks=[{{besu_required_blocks|map('to_json')|join(',')}}]
+{% endif %}
+
 {% if besu_target_gas_limit is defined %}
 # target gas limit
 target-gas-limit="{{ besu_target_gas_limit }}"
