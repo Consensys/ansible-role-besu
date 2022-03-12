@@ -7,7 +7,7 @@ logging="{{besu_log_level}}"
 node-private-key-file="{{besu_node_private_key_file}}"
 {% endif %}
 
-{% if besu_required_blocks|length > 0  %}
+{% if besu_required_blocks is defined and besu_required_blocks|length > 0  %}
 required-blocks=[{{besu_required_blocks|map('to_json')|join(',')}}]
 {% endif %}
 
