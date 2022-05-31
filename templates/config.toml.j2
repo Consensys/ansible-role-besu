@@ -1,6 +1,19 @@
 # data
 data-path="{{besu_data_dir}}"
 logging="{{besu_log_level}}"
+{% if besu_data_storage_format is defined and besu_data_storage_format != "" %}
+data-storage-format="{{besu_data_storage_format}}"
+{% endif %}
+
+{% if besu_engine_jwt_disabled is defined and besu_engine_jwt_disabled|bool == True %}
+engine-jwt-disabled=true
+{% endif %}
+{% if besu_engine_jwt_secret is defined and besu_engine_jwt_secret != "" %}
+engine-jwt-secret="{{besu_engine_jwt_secret}}"
+{% endif %}
+{% if besu_engine_rpc_port is defined and besu_engine_rpc_port != "" %}
+engine-rpc-port={{besu_engine_rpc_port}}
+{% endif %}
 
 {% if besu_node_private_key_file != "" %}
 # private_key
