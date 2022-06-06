@@ -23,6 +23,7 @@ besu_data_dir: "{{ besu_base_dir }}/data"
 besu_log_dir: "/var/log/besu"
 besu_log4j_config_file: ""
 besu_profile_file: "/etc/profile.d/besu-path.sh"
+besu_engine_jwt_secret: "{{ besu_config_dir }}/jwt-secret.hex"
 
 # Managed service config
 besu_managed_service: true
