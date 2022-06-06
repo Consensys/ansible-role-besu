@@ -59,7 +59,8 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_log_level` | INFO | The log level to use. Other log levels are 'OFF', 'FATAL', 'WARN', 'INFO', 'DEBUG', 'TRACE', 'ALL' |
 | `besu_data_storage_format` | ___unset___ | Data storage format. Possible values are 'FOREST' and 'BONSAI'. The besu default is 'FOREST' |
 | `besu_engine_jwt_disabled` | ___unset___ | Disables authentication for the Engine API. The besu default is false. |
-| `besu_engine_jwt_secret` | ___unset___ | Shared secret used to authenticate consensus clients when using the Engine JSON-RPC API (both HTTP and WebSocket). Contents of file must be at least 32 hex-encoded bytes and not begin with 0x. |
+| `besu_engine_jwt_secret` | "{{ besu_config_dir }}/jwt-secret.hex" | Path to the shared secret file used to authenticate consensus clients when using the Engine JSON-RPC API (both HTTP and WebSocket). Contents of file could be set `besu_engine_jwt_secret_content` and must be at least 32 hex-encoded bytes and not begin with 0x, otherwise a random value if automatically set, but only if a secret does not already exist on disk. |
+| `besu_engine_jwt_secret_content` | _random value_ | If specified, the `besu_engine_jwt_secret` file is populated with this value, that must be at least 32 hex-encoded bytes and not begin with 0x, and should be encrypted with [Ansible Vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html#encrypting-individual-variables-with-ansible-vault). By default a random value is generated. |
 | `besu_engine_rpc_port` | ___unset___ | The listening port for the Engine API calls (ENGINE, ETH) for JSON-RPC over HTTP and WebSocket. The besu default is 8551 |
 | `besu_p2p_port` | 30303 | Specifies the P2P listening ports (UDP and TCP). Ports must be exposed appropriately |
 | `besu_min_gas` | 1000 | The minimum price that a transaction offers for it to be included in a mined block |

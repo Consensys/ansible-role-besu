@@ -18,6 +18,33 @@
   become: true
   register: config_toml
 
+- name: JWT secret
+  block:
+    - name: Check if JWT secret already exists
+      stat:
+        path: "{{ besu_engine_jwt_secret }}"
+      register: stat_result
+
+    # Set the value if it is set by the user or if the secret does not already exist
+    # if not secret is specified and there is not existing secret on disk, then set it to a random value
+    - name: Set the JWT shared secret
+      copy:
+        dest: "{{ besu_engine_jwt_secret }}"
+        content: "{{ besu_engine_jwt_secret_content | default((('%#064x' % ((2 | pow(256) | int ) | random)) | split('x'))[1]) }}"
+        owner: "{{ besu_user }}"
+        group: "{{ besu_group }}"
+        mode: 0400
+      register: jwt_secret_content
+      when: besu_engine_jwt_secret_content is defined or not stat_result.stat.exists or stat_result.stat.size == 0
+
+    - name: Set updated optionally to trigger a systemd restart at the end
+      set_fact:
+        besu_state_updates: "{{ besu_state_updates + ['besu.jwt_secret_content'] }}"
+      when: jwt_secret_content is changed
+
+  when: besu_engine_jwt_disabled is undefined or besu_engine_jwt_disabled|bool == False
+  become: yes
+
 - name: Set updated optionally to trigger a systemd restart at the end
   set_fact:
     besu_state_updates: "{{ besu_state_updates + ['besu.config_toml'] }}"
