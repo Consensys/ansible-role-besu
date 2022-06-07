@@ -20,13 +20,14 @@
 
 - name: JWT secret
   block:
-    - name: Check if JWT secret already exists
+    - name: Check if a JWT secret already exists
       stat:
         path: "{{ besu_engine_jwt_secret }}"
       register: stat_result
+      when: besu_engine_jwt_secret_content is undefined
 
-    # Set the value if it is set by the user or if the secret does not already exist
-    # if not secret is specified and there is not existing secret on disk, then set it to a random value
+    # Set the value if it is set by the user or if the secret does not already exist,
+    # if no secret is specified and there is not an existing secret on disk, then set it to a random value.
     - name: Set the JWT shared secret
       copy:
         dest: "{{ besu_engine_jwt_secret }}"
@@ -42,7 +43,7 @@
         besu_state_updates: "{{ besu_state_updates + ['besu.jwt_secret_content'] }}"
       when: jwt_secret_content is changed
 
-  when: besu_engine_jwt_disabled is undefined or besu_engine_jwt_disabled|bool == False
+  when: besu_engine_jwt_secret is defined and besu_engine_jwt_secret != ""
   become: yes
 
 - name: Set updated optionally to trigger a systemd restart at the end
