@@ -62,6 +62,7 @@ besu_bootnodes: []
 besu_host_whitelist: ["*"]
 besu_cmdline_args: []
 besu_env_opts: []
+besu_env_vars: {}
 besu_permissions_nodes_contract_version: 2
 besu_xdns_enabled: "false"
 besu_static_nodes_file: ""

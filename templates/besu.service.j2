@@ -12,6 +12,9 @@ Environment=LOG4J_CONFIGURATION_FILE={{ besu_log4j_config_file }}
 {% if besu_env_opts %}
 Environment='BESU_OPTS={{besu_env_opts|map('to_json')|join(' ')}}'
 {% endif %}
+{% for key, value in besu_env_vars.items() %}
+Environment='{{ key }}={{ value }}'
+{% endfor %}
 Type=simple
 {% if besu_cmdline_args %}
 ExecStart=/bin/sh -c "{{ besu_current_dir }}/bin/besu --config-file={{ besu_config_dir }}/config.toml {{besu_cmdline_args|map('to_json')|join(' ')|regex_replace('"','')}} >> {{besu_log_dir}}/besu.log 2>&1"
