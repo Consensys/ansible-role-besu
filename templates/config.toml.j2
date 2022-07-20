@@ -5,16 +5,24 @@ logging="{{besu_log_level}}"
 data-storage-format="{{besu_data_storage_format}}"
 {% endif %}
 
+# JWT
 {% if besu_engine_jwt_disabled is defined and besu_engine_jwt_disabled|bool == True %}
 engine-jwt-disabled=true
 {% else %}
+# authentication is enabled by default when engine-jwt-disabled=false
+engine-jwt-disabled=false
 {% if besu_engine_jwt_secret is defined and besu_engine_jwt_secret != "" %}
 engine-jwt-secret="{{besu_engine_jwt_secret}}"
 {% endif %}
 {% if besu_engine_rpc_port is defined and besu_engine_rpc_port != "" %}
+engine-rpc-enabled=true
 engine-rpc-port={{besu_engine_rpc_port}}
 {% endif %}
+{% if besu_engine_host_allowlist is defined %}
+engine-host-allowlist={{besu_engine_host_allowlist|map('to_json')|join(',')}}
 {% endif %}
+{% endif %}
+
 
 {% if besu_node_private_key_file != "" %}
 # private_key
