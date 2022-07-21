@@ -19,7 +19,7 @@ engine-rpc-enabled=true
 engine-rpc-port={{besu_engine_rpc_port}}
 {% endif %}
 {% if besu_engine_host_allowlist is defined %}
-engine-host-allowlist={{besu_engine_host_allowlist|map('to_json')|join(',')}}
+engine-host-allowlist=[{{besu_engine_host_allowlist|map('to_json')|join(',')}}]
 {% endif %}
 {% endif %}
 
