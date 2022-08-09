@@ -42,7 +42,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_node_private_key_file` | "" | Path for node private key, if supplied. This needs to include the node key file name and path like so `/home/me/me_node/myPrivateKey`. If not supplied Besu will create one automatically |
 | `besu_data_dir` | /opt/besu/data | Path for data directory|
 | `besu_log_dir` | /var/log/besu | Path for logs |
-| `besu_log4j_config_file` | "" | Absolute path for a custom log4j config file |
+| `besu_log4j_config_file` |  ___unset___ | Absolute path for a custom log4j config file. Note this log configuration is overriden if `besu_log_level` is set |
 | `besu_profile_file` | /etc/profile.d/besu-path.sh | Path to allow loading Besu into the system PATH |
 | `besu_managed_service` | true | Enables a systemd service (or launchd if on Darwin) |
 | `besu_launchd_dir` | /Library/LaunchAgents | The default launchd directory  |
@@ -56,7 +56,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_genesis_path` | ___unset___ | The path to the genesis file, only valid when `besu_network` is `custom` |
 | `besu_required_blocks` | [] | Requires a peer with the specified block number to have the specified hash when connecting, or Besu rejects that peer |
 | `besu_sync_mode` | FAST | Specifies the synchronization mode. Other values are 'FULL' |
-| `besu_log_level` | INFO | The log level to use. Other log levels are 'OFF', 'FATAL', 'WARN', 'INFO', 'DEBUG', 'TRACE', 'ALL' |
+| `besu_log_level` | ___unset___ | The log level to use. Other log levels are 'OFF', 'FATAL', 'WARN', 'INFO', 'DEBUG', 'TRACE', 'ALL'. Note setting this has priority over the configuration set by `besu_log4j_config_file` |
 | `besu_data_storage_format` | ___unset___ | Data storage format. Possible values are 'FOREST' and 'BONSAI'. The besu default is 'FOREST' |
 | `besu_engine_jwt_disabled` | ___unset___ | Disables authentication for the Engine API. The besu default is false. |
 | `besu_engine_jwt_secret` | ___unset___ | Path to the shared secret file used to authenticate consensus clients when using the Engine JSON-RPC API (both HTTP and WebSocket). Contents of file could be set with `besu_engine_jwt_secret_content` and must be at least 32 hex-encoded bytes, not begin with 0x, otherwise a random value if automatically set, but only if a secret does not already exist on disk. If not specified, by default Besu creates an ephemeral secret in the data dir, that is deleted on exit. |

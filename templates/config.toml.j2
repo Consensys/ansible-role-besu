@@ -1,6 +1,8 @@
 # data
 data-path="{{besu_data_dir}}"
+{% if besu_log_level is defined %}
 logging="{{besu_log_level}}"
+{% endif %}
 {% if besu_data_storage_format is defined and besu_data_storage_format != "" %}
 data-storage-format="{{besu_data_storage_format}}"
 {% endif %}
