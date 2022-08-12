@@ -1,8 +1,15 @@
 # data
 data-path="{{besu_data_dir}}"
+
+# logging
+{% if besu_log4j_config_file is defined %}
+# Settings for logging are defined in "{{ besu_log4j_config_file }}"
+{% else %}
 {% if besu_log_level is defined %}
 logging="{{besu_log_level}}"
 {% endif %}
+{% endif %}
+
 {% if besu_data_storage_format is defined and besu_data_storage_format != "" %}
 data-storage-format="{{besu_data_storage_format}}"
 {% endif %}
