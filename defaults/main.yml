@@ -50,6 +50,12 @@ besu_rpc_ws_api: ["NET", "ETH", "WEB3"]
 besu_rpc_ws_enabled: "true"
 besu_rpc_ws_host: 0.0.0.0
 besu_rpc_ws_port: 8546
+besu_rpc_http_authentication_enabled: "false"
+besu_rpc_http_authentication_credentials_file: ""
+besu_rpc_http_authentication_jwt_public_key_file: ""
+besu_rpc_ws_authentication_enabled: "false"
+besu_rpc_ws_authentication_credentials_file: ""
+besu_rpc_ws_authentication_jwt_public_key_file: ""
 besu_graphql_http_enabled: "true"
 besu_graphql_http_host: 0.0.0.0
 besu_graphql_http_port: 8547

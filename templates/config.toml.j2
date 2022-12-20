@@ -98,6 +98,20 @@ graphql-http-port={{besu_graphql_http_port}}
 graphql-http-cors-origins=[{{besu_graphql_http_cors_origins|map('to_json')|join(',')}}]
 {% endif %}
 
+{% if besu_rpc_http_authentication_enabled|bool == True %}
+# rpc http authentication
+rpc-http-authentication-enabled=true
+rpc-http-authentication-credentials-file="{{besu_rpc_http_authentication_credentials_file}}"
+rpc-http-authentication-jwt-public-key-file="{{besu_rpc_http_authentication_jwt_public_key_file}}"
+{% endif %}
+
+{% if besu_rpc_ws_authentication_enabled|bool == True %}
+# rpc ws authentication
+rpc-ws-authentication-enabled=true
+rpc-ws-authentication-credentials-file="{{besu_rpc_ws_authentication_credentials_file}}"
+rpc-ws-authentication-jwt-public-key-file="{{besu_rpc_ws_authentication_jwt_public_key_file}}"
+{% endif %}
+
 # p2p
 {% if besu_host_ip != "" %}
 p2p-host="{{besu_host_ip}}"
