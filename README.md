@@ -80,6 +80,12 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_graphql_http_host` | 0.0.0.0 | Specifies the host on which HTTP JSON-RPC listens |
 | `besu_graphql_http_port` | 8547 | Specifies the port on which HTTP JSON-RPC listens |
 | `besu_graphql_http_cors_origins` | ["all"] | Comma separated origin domain URLs for CORS validation |
+| `besu_rpc_http_authentication_enabled` | "false" | Enable RPC WS authentication |
+| `besu_rpc_http_authentication_credentials_file` | "" | Specifies the file to use for RPC http credentials |
+| `besu_rpc_http_authentication_jwt_public_key_file` | "" | Specifies the file to use for RPC http credentials via pubkey |
+| `besu_rpc_ws_authentication_enabled` | "false" | Enable RPC WS authentication |
+| `besu_rpc_ws_authentication_credentials_file` | "" | Specifies the file to use for RPC http credentials |
+| `besu_rpc_ws_authentication_jwt_public_key_file` | "" | Specifies the file to use for RPC http credentials via pubkey |
 | `besu_metrics_host` | 0.0.0.0 | Specifies the host on which Prometheus accesses Besu metrics. The metrics server respects the `besu_whitelist` option |
 | `besu_metrics_port` | 9545 | Specifies the port on which Prometheus accesses Besu metrics |
 | `besu_bootnodes` | [] | List of comma-separated enode URLs for P2P discovery bootstrap. When connecting to MainNet or public testnets, the default is a predefined list of enode URLs |
