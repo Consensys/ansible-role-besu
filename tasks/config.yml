@@ -21,7 +21,7 @@
 - name: Generate static nodes file if defined
   copy:
     dest: "{{ besu_static_nodes_file }}"
-    content: "{{ besu_static_nodes }}" 
+    content: "{{ besu_static_nodes | to_json }}" 
     owner: "{{ besu_user }}"
     group: "{{ besu_group }}"
     mode: 0644
