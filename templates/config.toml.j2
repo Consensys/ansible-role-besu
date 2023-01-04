@@ -126,16 +126,16 @@ metrics-enabled=true
 metrics-host="{{besu_metrics_host}}"
 metrics-port={{besu_metrics_port}}
 
-{% if besu_permissions_accounts_config_file is defined %}
+{% if besu_local_permissions_accounts != [] %}
 # local account permissions
 permissions-accounts-config-file-enabled=true
-permissions-accounts-config-file="{{ besu_permissions_accounts_config_file }}"
+permissions-accounts-config-file="{{ besu_local_permissions_config_file }}"
 {% endif %}
 
-{% if besu_permissions_nodes_config_file is defined %}
+{% if besu_local_permissions_nodes != [] %}
 # local node permissions
 permissions-nodes-config-file-enabled=true
-permissions-nodes-config-file="{{ besu_permissions_nodes_config_file }}"
+permissions-nodes-config-file="{{ besu_local_permissions_config_file }}"
 {% endif %}
 
 {% if besu_permissions_accounts_contract_address is defined %}
