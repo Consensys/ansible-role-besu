@@ -24,6 +24,7 @@ besu_log_dir: "/var/log/besu"
 besu_profile_file: "/etc/profile.d/besu-path.sh"
 besu_static_nodes_file: "{{ besu_config_dir }}/static-nodes.json"
 besu_local_permissions_config_file: "{{ besu_config_dir }}/permissions_config.toml"
+besu_local_permissions_config_file_template: "permissions_config.toml.j2"
 
 # Managed service config
 besu_managed_service: true

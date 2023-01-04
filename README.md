@@ -91,8 +91,10 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_bootnodes` | [] | List of comma-separated enode URLs for P2P discovery bootstrap. When connecting to MainNet or public testnets, the default is a predefined list of enode URLs |
 | `besu_static_nodes_file` | /etc/besu/static-nodes.json | Path to the [static nodes file](https://besu.hyperledger.org/en/stable/Reference/CLI/CLI-Syntax/#static-nodes-file) |
 | `besu_host_whitelist` | `["*"]` | Comma-separated list of hostnames to allow access to the JSON-RPC API. By default, access from localhost and 127.0.0.1 is accepted. |
-| `besu_permissions_accounts_config_file` | ___unset___ | Path to the [local accounts permissioning file](http://besu.hyperledger.org/en/stable/HowTo/Limit-Access/Local-Permissioning/#permissions-configuration-file) |
-| `besu_permissions_nodes_config_file` | ___unset___ | Path to the [local nodes permissioning file](http://besu.hyperledger.org/en/stable/HowTo/Limit-Access/Local-Permissioning/#permissions-configuration-file) |
+| `besu_local_permissions_enabled` | "false" | Enable local permissioning |
+| `besu_local_permissions_config_file` | /etc/besu/permissions_config.toml | Path to the [local accounts permissioning file](http://besu.hyperledger.org/en/stable/HowTo/Limit-Access/Local-Permissioning/#permissions-configuration-file) and [local nodes permissioning file](http://besu.hyperledger.org/en/stable/HowTo/Limit-Access/Local-Permissioning/#permissions-configuration-file) |
+| `besu_local_permissions_accounts` | [] | List of permissioned accounts |
+| `besu_local_permissions_nodes` | [] | List of permissioned nodes |
 | `besu_permissions_accounts_contract_address` | ___unset___ | The contract address for onchain accounts permissioning |
 | `besu_permissions_nodes_contract_address` | ___unset___ | The contract address for onchain nodes permissioning |
 | `besu_cmdline_args` | "" | Command line args that are passed in as overrides |
