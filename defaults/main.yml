@@ -22,6 +22,9 @@ besu_config_template: "config.toml.j2"
 besu_data_dir: "{{ besu_base_dir }}/data"
 besu_log_dir: "/var/log/besu"
 besu_profile_file: "/etc/profile.d/besu-path.sh"
+besu_static_nodes_file: "{{ besu_config_dir }}/static-nodes.json"
+besu_local_permissions_config_file: "{{ besu_config_dir }}/permissions_config.toml"
+besu_local_permissions_config_file_template: "permissions_config.toml.j2"
 
 # Managed service config
 besu_managed_service: true
@@ -68,8 +71,11 @@ besu_cmdline_args: []
 besu_env_opts: []
 besu_env_vars: {}
 besu_permissions_nodes_contract_version: 2
+besu_local_permissions_enabled: "false"
+besu_local_permissions_accounts: []
+besu_local_permissions_nodes: []
 besu_xdns_enabled: "false"
-besu_static_nodes_file: ""
+besu_static_nodes: []
 
 # privacy
 besu_privacy_enabled: "false"

@@ -1,0 +1,11 @@
+
+{% if besu_local_permissions_accounts != [] %}
+# local accounts allowlist
+accounts-allowlist=[{{besu_local_permissions_accounts|map('to_json')|join(',')}}]
+{% endif %}
+
+{% if besu_local_permissions_nodes != [] %}
+# local nodes allowlist
+nodes-allowlist=[{{besu_local_permissions_nodes|map('to_json')|join(',')}}]
+{% endif %}
+
