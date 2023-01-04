@@ -18,6 +18,16 @@
   become: true
   register: config_toml
 
+- name: Generate static nodes file if defined
+  copy:
+    dest: "{{ besu_static_nodes_file }}"
+    content: "{{ besu_static_nodes }}" 
+    owner: "{{ besu_user }}"
+    group: "{{ besu_group }}"
+    mode: 0644
+  become: true
+  when: besu_static_nodes != []
+
 - name: JWT secret
   block:
     - name: Check if a JWT secret already exists
