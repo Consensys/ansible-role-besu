@@ -106,7 +106,11 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_privacy_marker_tx_signing_key_file` | "" | Path of the private key file used to sign Privacy Marker Transactions. If you do not specify this option, Besu signs each transaction with a different randomly generated key. |
 | `besu_xdns_enabled` | "false" | DNS support with a trusted DNS provider in private networks because of limitations where IP addresses can change. For example, when using Kubernetes pods |
 | `besu_target_gas_limit` | ___unset___  | Configuration of the target gas limit |
-
+| `besu_tx_pool_limit_by_account_percentage` | 5  | The maximum number of transactions in a block, per account. Defaults to 5 top prevent a DDOS attack. This uses a float value [0..1], so setting it to 1 means a single sender can fill the entire tx pool.  |
+| `besu_tx_pool_future_max_by_account` | 64  | The maximum number of future transactions kept in the transaction pool, per account. |
+| `besu_tx_pool_max_size` | 4096  | The maximum number of transactions kept in the transaction pool |
+| `besu_tx_pool_price_bump` | 10  | The price bump percentage to replace an existing transaction |
+| `besu_tx_pool_retention_hours` | 13  | The maximum period, in hours, to hold pending transactions in the transaction pool |
 
 ### Example Playbook
 

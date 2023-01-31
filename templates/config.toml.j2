@@ -32,7 +32,6 @@ engine-host-allowlist=[{{besu_engine_host_allowlist|map('to_json')|join(',')}}]
 {% endif %}
 {% endif %}
 
-
 {% if besu_node_private_key_file != "" %}
 # private_key
 node-private-key-file="{{besu_node_private_key_file}}"
@@ -120,6 +119,13 @@ p2p-port={{besu_p2p_port}}
 {% if besu_max_peers is defined %}
 max-peers={{besu_max_peers}}
 {% endif %}
+
+# tx pool
+tx-pool-limit-by-account-percentage={{ besu_tx_pool_limit_by_account_percentage }}
+tx-pool-future-max-by-account={{ besu_tx_pool_future_max_by_account }}
+tx-pool-max-size={{ besu_tx_pool_max_size }}
+tx-pool-price-bump={{ besu_tx_pool_price_bump }}
+tx-pool-retention-hours={{ besu_tx_pool_retention_hours }}
 
 # metrics
 metrics-enabled=true
