@@ -13,8 +13,8 @@
 
 - name: Ensure JDK is installed
   fail:
-    msg: "You must have JDK 11 or later installed. {{ 'No version found.' if jdk_version is failed else 'Found version ' + jdk_version.stdout }}"
-  when: jdk_version.stdout is version('11.0.0', '<')
+    msg: "You must have JDK 17 or later installed. {{ 'No version found.' if jdk_version is failed else 'Found version ' + jdk_version.stdout }}"
+  when: jdk_version.stdout is version('17.0.0', '<')
 
 - name: Clone Besu Sources
   git:
