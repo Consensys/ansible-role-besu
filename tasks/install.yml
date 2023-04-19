@@ -54,23 +54,6 @@
       - --strip-components
       - '1'
   become: true
-  register: extract_src
-
-- name: Set updated optionally to trigger a systemd restart at the end
-  set_fact:
-    besu_state_updates: "{{ besu_state_updates + ['besu.install_dir'] }}"
-  when: extract_src is changed
-
-# will throw error the first time you install since the service isnt present
-- name: Stop Besu systemd service if running
-  service:
-    name: besu
-    state: stopped
-  when: ( extract_src is changed ) and
-    ( besu_managed_service ) and
-    ( ansible_os_family != "Darwin" )
-  become: true
-  ignore_errors: true
 
 - name: Create a symlink to current
   file:
@@ -78,3 +61,9 @@
     dest: "{{ besu_current_dir }}"
     state: link
   become: true
+  register: link_current
+
+- name: Set updated optionally to trigger a systemd restart at the end
+  set_fact:
+    besu_state_updates: "{{ besu_state_updates + ['besu.install_dir'] }}"
+  when: link_current is changed
