@@ -163,7 +163,7 @@ permissions-nodes-contract-version={{besu_permissions_nodes_contract_version}}
 bootnodes=[{{besu_bootnodes|map('to_json')|join(',')}}]
 {% endif %}
 
-{% if besu_static_nodes_file != "" %}
+{% if besu_static_nodes != [] %}
 # static-nodes
 static-nodes-file="{{ besu_static_nodes_file }}"
 {% endif %}
