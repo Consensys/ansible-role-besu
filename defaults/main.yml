@@ -78,7 +78,7 @@ besu_xdns_enabled: "false"
 besu_static_nodes: []
 # float values in the range [0..1], 1=single sender can fill the entire tx pool
 # https://github.com/hyperledger/besu/issues/4611
-besu_tx_pool_limit_by_account_percentage: 1
+besu_tx_pool_limit_by_account_percentage: 0.001
 besu_tx_pool_max_size: 4096
 besu_tx_pool_price_bump: 10
 besu_tx_pool_retention_hours: 13
