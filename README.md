@@ -106,10 +106,11 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_privacy_marker_tx_signing_key_file` | "" | Path of the private key file used to sign Privacy Marker Transactions. If you do not specify this option, Besu signs each transaction with a different randomly generated key. |
 | `besu_xdns_enabled` | "false" | DNS support with a trusted DNS provider in private networks because of limitations where IP addresses can change. For example, when using Kubernetes pods |
 | `besu_target_gas_limit` | ___unset___  | Configuration of the target gas limit |
-| `besu_tx_pool_limit_by_account_percentage` | 0.001 | The maximum number of transactions, relative to the max pool size, for the same sender allowed in the transaction pool. Defaults to 5 to prevent a DoS attack. This uses a float value [0..1], so setting it to 1 means a single sender can fill the entire tx pool.  |
-| `besu_tx_pool_max_size` | 4096  | The maximum number of transactions kept in the transaction pool |
+| `besu_tx_pool` | layered | Select the transaction pool implementation, set to `legacy` to switch to the old implementation |
 | `besu_tx_pool_price_bump` | 10  | The price bump percentage to replace an existing transaction |
-| `besu_tx_pool_retention_hours` | 13  | The maximum period, in hours, to hold pending transactions in the transaction pool |
+| `besu_tx_pool_limit_by_account_percentage` | 0.001 | The maximum number of transactions, relative to the max pool size, for the same sender allowed in the transaction pool. Defaults to 5 to prevent a DoS attack. This uses a float value [0..1], so setting it to 1 means a single sender can fill the entire tx pool. Only apply if `legacy` implementation is selected |
+| `besu_tx_pool_max_size` | 4096  | The maximum number of transactions kept in the transaction pool.  Only apply if `legacy` implementation is selected |
+| `besu_tx_pool_retention_hours` | 13  | The maximum period, in hours, to hold pending transactions in the transaction pool.  Only apply if `legacy` implementation is selected |
 
 ### Example Playbook
 
@@ -174,4 +175,4 @@ Apache
 
 ### Author Information
 
-Consensys, 2021
+Consensys, 2023
