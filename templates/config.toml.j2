@@ -121,10 +121,13 @@ max-peers={{besu_max_peers}}
 {% endif %}
 
 # tx pool
+{% if besu_tx_pool == "legacy" %}
+tx-pool=legacy
 tx-pool-limit-by-account-percentage={{ besu_tx_pool_limit_by_account_percentage }}
 tx-pool-max-size={{ besu_tx_pool_max_size }}
-tx-pool-price-bump={{ besu_tx_pool_price_bump }}
 tx-pool-retention-hours={{ besu_tx_pool_retention_hours }}
+{% endif %}
+tx-pool-price-bump={{ besu_tx_pool_price_bump }}
 
 # metrics
 metrics-enabled=true
