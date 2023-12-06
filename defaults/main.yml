@@ -89,7 +89,7 @@ besu_tx_pool_retention_hours: 13
 besu_plugin_fleet_node_role: ""
 besu_plugin_fleet_leader_http_host: ""
 beus_plugin_fleet_leader_http_port: 8545
-besu_plugin_fleet_follower_http_host: 0.0.0.0
+besu_plugin_fleet_follower_http_host: ""
 besu_plugin_fleet_follower_http_port: 8545
 
 # privacy

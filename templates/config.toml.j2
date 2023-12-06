@@ -182,6 +182,7 @@ privacy-marker-transaction-signing-key-file="{{besu_privacy_marker_tx_signing_ke
 {% endif %}
 
 {% if besu_plugin_fleet_node_role != "" %}
+Xsnapsync-synchronizer-flat-db-healing-enabled=true
 {% if besu_plugin_fleet_node_role == "LEADER" %}
 plugin-fleet-node-role="LEADER"
 {% else %}
@@ -189,7 +190,7 @@ plugin-fleet-node-role="FOLLOWER"
 plugin-fleet-leader-http-host="{{besu_plugin_fleet_leader_http_host}}"
 plugin-fleet-leader-http-port={{beus_plugin_fleet_leader_http_port}}
 plugin-fleet-follower-http-host="{{besu_plugin_fleet_follower_http_host}}"
-plugin-fleet-leader-http-port={{besu_plugin_fleet_follower_http_port}}
+plugin-fleet-follower-http-port={{besu_plugin_fleet_follower_http_port}}
 {% endif %}
 {% endif %}
 

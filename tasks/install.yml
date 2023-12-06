@@ -57,7 +57,7 @@
 
 - name: Create a symlink to current
   file:
-    src: "{{ besu_install_dir }}/"v
+    src: "{{ besu_install_dir }}/"
     dest: "{{ besu_current_dir }}"
     state: link
   become: true

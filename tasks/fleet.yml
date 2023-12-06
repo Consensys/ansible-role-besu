@@ -41,7 +41,7 @@
 
 - name: Set the host ip if we are in Azure
   set_fact:
-    besu_host_ip: "{{ azure_private_ip_output.content }}"
+    besu_plugin_fleet_follower_http_host: "{{ azure_private_ip_output.content }}"
   when: (besu_plugin_fleet_node_role=="FOLLOWER") and
     ( aws_private_ip_output.status != 200 ) and 
     ( azure_private_ip_output.status == 200 )
@@ -62,14 +62,16 @@
 
 - name: Set the host ip if we are in GCP
   set_fact:
-    besu_host_ip: "{{ gcp_private_ip_output.content }}"
-  when: ( aws_private_ip_output.status != 200 ) and
+    besu_plugin_fleet_follower_http_host: "{{ gcp_private_ip_output.content }}"
+  when: (besu_plugin_fleet_node_role=="FOLLOWER") and
+    ( aws_private_ip_output.status != 200 ) and
     ( azure_private_ip_output.status != 200 ) and
     ( gcp_private_ip_output == 200 )
 
 - name: Fallback to the ansible default ip
   set_fact:
-    besu_host_ip: "{{ besu_default_ip }}"
-  when: ( aws_private_ip_output.status != 200 ) and
+    besu_plugin_fleet_follower_http_host: "{{ besu_default_ip }}"
+  when: (besu_plugin_fleet_node_role=="FOLLOWER") and
+    ( aws_private_ip_output.status != 200 ) and
     ( azure_private_ip_output.status != 200 ) and
     ( gcp_private_ip_output != 200 )
