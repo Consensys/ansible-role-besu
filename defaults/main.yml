@@ -84,6 +84,14 @@ besu_tx_pool_max_size: 4096
 besu_tx_pool_price_bump: 10
 besu_tx_pool_retention_hours: 13
 
+# fleet mode plugin
+#LEADER/FOLLOWER
+besu_plugin_fleet_node_role: ""
+besu_plugin_fleet_leader_http_host: ""
+beus_plugin_fleet_leader_http_port: 8545
+besu_plugin_fleet_follower_http_host: 0.0.0.0
+besu_plugin_fleet_follower_http_port: 8545
+
 # privacy
 besu_privacy_enabled: "false"
 besu_privacy_url: "http://127.0.0.1:8888"

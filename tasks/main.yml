@@ -46,6 +46,10 @@
   include_tasks: "network.yml"
   when: not besu_host_ip
 
+- name: Get private IP address to bind to if not provided for fleet mode
+  include_tasks: "fleet.yml"
+  when: not besu_plugin_fleet_node_role
+
 - name: Create config
   include_tasks: "config.yml"
 
