@@ -5,7 +5,7 @@ besu_user: besu
 besu_group: "{{ besu_user }}"
 
 # Version to install
-besu_download_url: "https://hyperledger.jfrog.io/artifactory/besu-binaries/besu/{{ besu_version }}/besu-{{ besu_version }}.tar.gz"
+besu_download_url: "https://github.com/hyperledger/besu/releases/download/{{ besu_version }}/besu-{{ besu_version }}.tar.gz"
 
 # Building from source
 besu_build_from_source: false
