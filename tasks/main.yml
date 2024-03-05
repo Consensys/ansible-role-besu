@@ -1,11 +1,16 @@
 ---
 - name: Ensure we have sane configuration
   block:
+    - name: If besu_version is "" then unset it
+      set_fact:
+        besu_version:
+      when: besu_version == ""
+
     - name: Check besu_version is correct
       fail:
         msg: You must set "besu_version" for this role to run when not building Besu from source
       when: besu_version is not defined and not besu_build_from_source
-    
+
     - name: Check besu_version is not set when besu_build_from_source is set
       fail:
         msg: >-
