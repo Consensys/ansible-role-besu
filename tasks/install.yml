@@ -46,7 +46,7 @@
 - name: Update besu_download_url to provide support for older versions
   set_fact:
     besu_download_url: "https://hyperledger.jfrog.io/artifactory/besu-binaries/besu/{{ besu_version }}/besu-{{ besu_version }}.tar.gz"
-  when: "{{ besu_version is version('24.1.2', operator='le', strict=True, version_type='semver') }}" | bool
+  when: "{{ besu_version is version('24.1.2', operator='le', strict=True, version_type='semver') | bool == True}}" 
 
 - name: Extract Besu source to install directory
   unarchive:
