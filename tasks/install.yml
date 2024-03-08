@@ -51,7 +51,7 @@
 - name: Extract Besu source to install directory
   unarchive:
     src: "{{ '/tmp/besu/build/distributions/besu-' + besu_version + '.tar.gz' if besu_build_from_source else besu_download_url }}"
-    remote_src: "{{ false if besu_build_from_source else true }}"
+    remote_src: yes
     dest: "{{ besu_install_dir }}"
     owner: "{{ besu_user }}"
     group: "{{ besu_group }}"
