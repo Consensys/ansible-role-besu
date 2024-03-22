@@ -23,7 +23,7 @@
     version: "{{ besu_git_commit }}"
 
 - name: Build Besu
-  shell: "JAVA_HOME=$(update-java-alternatives --list | grep 17 | tail -n 1 | awk '{print $3}' ./gradlew --no-daemon --parallel clean assemble"
+  shell: "JAVA_HOME=$(update-java-alternatives --list | grep 17 | tail -n 1 | awk '{print $3}') ./gradlew --no-daemon --parallel clean assemble"
   args:
     chdir: /tmp/besu
   changed_when: true
