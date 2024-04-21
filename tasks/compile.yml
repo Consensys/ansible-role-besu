@@ -21,6 +21,8 @@
     repo: "{{ besu_git_repo }}"
     dest: '/tmp/besu'
     version: "{{ besu_git_commit }}"
+    recursive: false
+    depth: 1
 
 - name: Build Besu
   shell: "JAVA_HOME=$(update-java-alternatives --list | grep 17 | tail -n 1 | awk '{print $3}') ./gradlew --no-daemon --parallel clean assemble"
