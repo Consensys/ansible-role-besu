@@ -1,69 +1,21 @@
 ---
-- name: Get the default ipv4 address
+- name: Get the default ipv4 address - and set this as the default fallback 
   set_fact:
-    besu_default_ip: >-
+    besu_host_ip: >-
       {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] if
       hostvars[inventory_hostname]['ansible_default_ipv4']['address'] is
       defined else '127.0.0.1' }}
-    besu_aws_public_ip: ""
-    besu_gcp_public_ip: ""
-    besu_azure_public_ip: ""
-
-- name: Check if running on AWS
+    
+- name: Fetch public IP 
   uri:
-    url: http://169.254.169.254/latest/meta-data/public-ipv4
+    url: http://ifconfig.me/ip
     method: GET
     return_content: yes
     status_code: 200
-  register: aws_public_ip_output
+  register: besu_public_ip_output
   ignore_errors: True
 
-- name: Set the host ip if we are in AWS
+- name: Set the host ip
   set_fact:
-    besu_host_ip: "{{ aws_public_ip_output.content }}"
-  when: aws_public_ip_output.status == 200
-
-- name: Check if running on Azure
-  uri:
-    url: http://169.254.169.254/metadata/instance/network/interface/0/ipv4/ipAddress/0/publicIpAddress?api-version=2017-08-01&format=text
-    method: GET
-    headers:
-      Metadata: true
-    return_content: yes
-    status_code: 200
-  register: azure_public_ip_output
-  ignore_errors: True
-  when: ( aws_public_ip_output.status != 200 )
-
-- name: Set the host ip if we are in Azure
-  set_fact:
-    besu_host_ip: "{{ azure_public_ip_output.content }}"
-  when: ( aws_public_ip_output.status != 200 ) and
-    ( azure_public_ip_output.status == 200 )
-
-- name: Check if running on GCP
-  uri:
-    url: http://169.254.169.254/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip
-    method: GET
-    headers:
-      Metadata-Flavor: Google
-    return_content: yes
-    status_code: 200
-  register: gcp_public_ip_output
-  ignore_errors: True
-  when: ( aws_public_ip_output.status != 200 ) and
-    ( azure_public_ip_output.status != 200 )
-
-- name: Set the host ip if we are in GCP
-  set_fact:
-    besu_host_ip: "{{ gcp_public_ip_output.content }}"
-  when: ( aws_public_ip_output.status != 200 ) and
-    ( azure_public_ip_output.status != 200 ) and
-    ( gcp_public_ip_output == 200 )
-
-- name: Fallback to the ansible default ip
-  set_fact:
-    besu_host_ip: "{{ besu_default_ip }}"
-  when: ( aws_public_ip_output.status != 200 ) and
-    ( azure_public_ip_output.status != 200 ) and
-    ( gcp_public_ip_output != 200 )
+    besu_host_ip: "{{ besu_public_ip_output.content }}"
+  when: besu_public_ip_output.status == 200
