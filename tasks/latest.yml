@@ -1,0 +1,19 @@
+- name: Get the version response
+  ansible.builtin.uri:
+    url: "{{ besu_latest_version_url }}"
+    method: GET
+    status_code: 200
+  register: _besu_latest_response
+
+- name: Extract the Besu version
+  ansible.builtin.set_fact:
+    _besu_version: "{{ _besu_latest_response.json.tag_name }}"
+
+- name: Validate the Besu version
+  ansible.builtin.assert:
+    that: _besu_version is search("^[0-9]+\.[0-9]+\.[0-9]+(-RC[0-9])?$")
+    fail_msg: "Retrieved version [{{ _besu_version }}] is  not a valid"
+
+- name: Information
+  debug:
+    msg: "Latest Besu version is {{ _besu_version }}"

@@ -5,7 +5,8 @@ besu_user: besu
 besu_group: "{{ besu_user }}"
 
 # Version to install
-besu_download_url: "https://github.com/hyperledger/besu/releases/download/{{ besu_version }}/besu-{{ besu_version }}.tar.gz"
+besu_download_url: "https://github.com/hyperledger/besu/releases/download/{{ _besu_version }}/besu-{{ _besu_version }}.tar.gz"
+besu_latest_version_url: "https://api.github.com/repos/hyperledger/besu/releases/latest"
 
 # Building from source
 besu_build_from_source: false
@@ -14,7 +15,7 @@ besu_git_commit: "master"
 
 # Directory paths
 besu_base_dir: "/opt/besu"
-besu_install_dir: "{{ besu_base_dir }}/besu-{{ besu_version }}"
+besu_install_dir: "{{ besu_base_dir }}/besu-{{ _besu_version }}"
 besu_current_dir: "{{ besu_base_dir }}/current"
 besu_node_private_key_file: ""
 besu_config_dir: "/etc/besu"
