@@ -31,7 +31,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | Name           | Default Value | Description                        |
 | -------------- | ------------- | -----------------------------------|
 | `besu_build_from_source` | ___unset___ |  When set to `true`, Besu is build from git sources. See also `besu_git_repo` and `besu_git_commit` |
-| `besu_version` | ___unset___ |  __REQUIRED__ if `besu_build_from_source` is false. Version of Besu to install and run. All available versions are listed on our Besu [solutions](https://github.com/hyperledger/besu/releases) page |
+| `besu_version` | ___unset___ |  __REQUIRED__ if `besu_build_from_source` is false. Version of Besu to install and run. All available versions are listed on our Besu [solutions](https://github.com/hyperledger/besu/releases) page. Can use `latest` to install the latest released version |
 | `besu_git_repo` | https://github.com/hyperledger/besu.git | The URL to use when cloning besu sources. Only necessary when `besu_build_from_source` is `true`. |
 | `besu_git_commit` | master | The git commit to use when building Besu from source. Can be a branchname, commit hash, or anything that's legal to be used as an argument to `git checkout`. Only used if `besu_build_from_source` is `true`. |
 | `besu_user` | besu | Besu user |

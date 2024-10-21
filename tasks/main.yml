@@ -13,6 +13,16 @@
             ( besu_privacy_public_key_file != "" ) and
             ( besu_sync_mode == "FAST" )
 
+# Using internal variable _besu_version which allows override using set_fact
+- name: Set fact for Besu version
+  ansible.builtin.set_fact:
+    _besu_version: "{{ besu_version }}"
+
+# Retrive latest version when besu_version == 'latest'
+- name: Include task to retrieve latest version
+  ansible.builtin.include_tasks: "latest.yml"
+  when: besu_version == 'latest'
+
 - name: Include OS and distribution specific variables
   include_vars: "{{ item }}"
   with_first_found:
