@@ -54,6 +54,7 @@ network="{{besu_network}}"
 
 min-gas-price={{ besu_min_gas }}
 sync-mode="{{besu_sync_mode}}"
+sync-min-peers={{besu_sync_min_peers}}
 host-whitelist=[{{besu_host_whitelist|map('to_json')|join(',')}}]
 
 {% if besu_identity is defined %}
@@ -119,15 +120,21 @@ p2p-port={{besu_p2p_port}}
 {% if besu_max_peers is defined %}
 max-peers={{besu_max_peers}}
 {% endif %}
+remote-connections-limit-enabled={{ besu_remote_connections_limit_enabled }}
 
 # tx pool
 {% if besu_tx_pool == "legacy" %}
 tx-pool=legacy
-tx-pool-limit-by-account-percentage={{ besu_tx_pool_limit_by_account_percentage }}
 tx-pool-max-size={{ besu_tx_pool_max_size }}
 tx-pool-retention-hours={{ besu_tx_pool_retention_hours }}
+{% else %}
+tx-pool="{{ besu_tx_pool }}"
 {% endif %}
+{% if besu_tx_pool_price_bump != 0 %}
 tx-pool-price-bump={{ besu_tx_pool_price_bump }}
+{% endif %}
+tx-pool-no-local-priority={{ besu_tx_pool_no_local_priority }}
+tx-pool-limit-by-account-percentage={{ besu_tx_pool_limit_by_account_percentage }}
 
 # metrics
 metrics-enabled=true
