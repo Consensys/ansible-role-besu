@@ -51,6 +51,7 @@ besu_rpc_http_host: 0.0.0.0
 besu_rpc_http_port: 8545
 besu_rpc_http_api: ["ADMIN", "DEBUG", "NET", "ETH", "MINER", "WEB3"]
 besu_rpc_http_cors_origins: ["all"]
+besu_rpc_http_max_active_connections: 80
 besu_rpc_ws_api: ["NET", "ETH", "WEB3"]
 besu_rpc_ws_enabled: "true"
 besu_rpc_ws_host: 0.0.0.0
