@@ -66,7 +66,7 @@ besu_graphql_http_cors_origins: ["all"]
 besu_metrics_host: 0.0.0.0
 besu_metrics_port: 9545
 besu_bootnodes: []
-besu_host_whitelist: ["*"]
+besu_host_allowlist: ["*"]
 besu_cmdline_args: []
 besu_env_opts: []
 besu_env_vars: {}
