@@ -88,11 +88,11 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_rpc_ws_authentication_enabled` | "false" | Enable RPC WS authentication |
 | `besu_rpc_ws_authentication_credentials_file` | "" | Specifies the file to use for RPC http credentials |
 | `besu_rpc_ws_authentication_jwt_public_key_file` | "" | Specifies the file to use for RPC http credentials via pubkey |
-| `besu_metrics_host` | 0.0.0.0 | Specifies the host on which Prometheus accesses Besu metrics. The metrics server respects the `besu_whitelist` option |
+| `besu_metrics_host` | 0.0.0.0 | Specifies the host on which Prometheus accesses Besu metrics. The metrics server respects the `besu_allowlist` option |
 | `besu_metrics_port` | 9545 | Specifies the port on which Prometheus accesses Besu metrics |
 | `besu_bootnodes` | [] | List of comma-separated enode URLs for P2P discovery bootstrap. When connecting to MainNet or public testnets, the default is a predefined list of enode URLs |
 | `besu_static_nodes_file` | /etc/besu/static-nodes.json | Path to the [static nodes file](https://besu.hyperledger.org/en/stable/Reference/CLI/CLI-Syntax/#static-nodes-file) |
-| `besu_host_whitelist` | `["*"]` | Comma-separated list of hostnames to allow access to the JSON-RPC API. By default, access from localhost and 127.0.0.1 is accepted. |
+| `besu_host_allowlist` | `["*"]` | Comma-separated list of hostnames to allow access to the JSON-RPC API. By default, access from localhost and 127.0.0.1 is accepted. |
 | `besu_local_permissions_enabled` | "false" | Enable local permissioning |
 | `besu_local_permissions_config_file` | /etc/besu/permissions_config.toml | Path to the [local accounts permissioning file](http://besu.hyperledger.org/en/stable/HowTo/Limit-Access/Local-Permissioning/#permissions-configuration-file) and [local nodes permissioning file](http://besu.hyperledger.org/en/stable/HowTo/Limit-Access/Local-Permissioning/#permissions-configuration-file) |
 | `besu_local_permissions_accounts` | [] | List of permissioned accounts |
