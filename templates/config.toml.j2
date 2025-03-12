@@ -182,7 +182,7 @@ privacy-marker-transaction-signing-key-file="{{besu_privacy_marker_tx_signing_ke
 {% endif %}
 
 {% if besu_plugin_fleet_node_role != "" %}
-Xsnapsync-synchronizer-flat-db-healing-enabled=true
+Xbonsai-full-flat-db-enabled=true
 {% if besu_plugin_fleet_node_role == "LEADER" %}
 plugin-fleet-node-role="LEADER"
 {% else %}
