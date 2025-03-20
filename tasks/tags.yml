@@ -1,0 +1,8 @@
+- name: Set the version on a local file so it can be used by other automation
+  copy: 
+    content: "{{ _besu_version }}"
+    dest: "{{ besu_version_info_file }}"
+    owner: "{{ besu_user }}"
+    group: "{{ besu_group }}"
+    mode: 0644    
+  become: true    

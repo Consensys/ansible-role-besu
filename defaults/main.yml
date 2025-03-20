@@ -26,6 +26,7 @@ besu_profile_file: "/etc/profile.d/besu-path.sh"
 besu_static_nodes_file: "{{ besu_config_dir }}/static-nodes.json"
 besu_local_permissions_config_file: "{{ besu_config_dir }}/permissions_config.toml"
 besu_local_permissions_config_file_template: "permissions_config.toml.j2"
+besu_version_info_file: "{{ besu_config_dir }}/elc_version"
 
 # Managed service config
 besu_managed_service: true
@@ -98,6 +99,6 @@ besu_privacy_url: "http://127.0.0.1:8888"
 besu_privacy_public_key_file: ""
 besu_privacy_marker_tx_signing_key_file: ""
 
-
 # internal state to maintain idempotency
 besu_state_updates: []
+
