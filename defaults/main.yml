@@ -16,6 +16,7 @@ besu_git_commit: "master"
 # Directory paths
 besu_base_dir: "/opt/besu"
 besu_install_dir: "{{ besu_base_dir }}/besu-{{ _besu_version }}"
+besu_plugins_dir: "{{ besu_install_dir }}/plugins"
 besu_current_dir: "{{ besu_base_dir }}/current"
 besu_node_private_key_file: ""
 besu_config_dir: "/etc/besu"
@@ -85,6 +86,13 @@ besu_tx_pool_max_size: 4096
 besu_tx_pool_price_bump: 10
 besu_tx_pool_retention_hours: 13
 
+# Besu plugins
+# list of dicts
+besu_plugins: []
+# besu_plugins: 
+#   - name: "shomei"
+#     download: "https://github.com/Consensys/besu-shomei-plugin/releases/download/v0.4.0/besu-shomei-plugin-v0.4.0.jar"
+
 # fleet mode plugin
 #LEADER/FOLLOWER
 besu_plugin_fleet_node_role: ""
@@ -101,4 +109,3 @@ besu_privacy_marker_tx_signing_key_file: ""
 
 # internal state to maintain idempotency
 besu_state_updates: []
-
