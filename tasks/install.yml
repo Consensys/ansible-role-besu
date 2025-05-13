@@ -36,6 +36,14 @@
     group: "{{ besu_group }}"
   become: true
 
+- name: Create plugins directory
+  file:
+    path: "{{ besu_pyroscope_dir }}"
+    state: directory
+    owner: "{{ besu_user }}"
+    group: "{{ besu_group }}"
+  become: true
+
 - name: Create log directory
   file:
     path: "{{ besu_log_dir }}"
@@ -65,6 +73,7 @@
 
 - name: Install plugins
   include_tasks: "plugins.yml"
+  when: besu_plugins != []
 
 - name: Create a symlink to current
   file:

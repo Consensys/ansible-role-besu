@@ -17,13 +17,16 @@ besu_git_commit: "master"
 besu_base_dir: "/opt/besu"
 besu_install_dir: "{{ besu_base_dir }}/besu-{{ _besu_version }}"
 besu_plugins_dir: "{{ besu_install_dir }}/plugins"
+besu_pyroscope_dir: "{{  besu_install_dir }}/pyroscope"
 besu_current_dir: "{{ besu_base_dir }}/current"
 besu_node_private_key_file: ""
 besu_config_dir: "/etc/besu"
 besu_config_template: "config.toml.j2"
+besu_config_file: "{{ besu_config_dir }}/config.toml"
 besu_data_dir: "{{ besu_base_dir }}/data"
 besu_log_dir: "/var/log/besu"
 besu_profile_file: "/etc/profile.d/besu-path.sh"
+
 besu_static_nodes_file: "{{ besu_config_dir }}/static-nodes.json"
 besu_local_permissions_config_file: "{{ besu_config_dir }}/permissions_config.toml"
 besu_local_permissions_config_file_template: "permissions_config.toml.j2"
@@ -70,7 +73,7 @@ besu_metrics_port: 9545
 besu_bootnodes: []
 besu_host_allowlist: ["*"]
 besu_cmdline_args: []
-besu_env_opts: []
+besu_opts: []
 besu_env_vars: {}
 besu_permissions_nodes_contract_version: 2
 besu_local_permissions_enabled: "false"
@@ -106,6 +109,25 @@ besu_privacy_enabled: "false"
 besu_privacy_url: "http://127.0.0.1:8888"
 besu_privacy_public_key_file: ""
 besu_privacy_marker_tx_signing_key_file: ""
+
+# pyroscope
+besu_pyroscope_enabled: false
+besu_pyroscope_version: "v0.18.1"
+besu_pyroscope_url: "https://github.com/grafana/pyroscope-java/releases/download/{{besu_pyroscope_version}}/pyroscope.jar"
+besu_pyroscope_server_url: "http://pyroscope:4040"
+besu_pyroscope_basic_auth_user: ""
+besu_pyroscope_basic_auth_password: ""
+besu_pyroscope_application_name: "besu-{{_besu_version}}"
+besu_pyroscope_format: jfr
+besu_pyroscope_profiling_interval: 10ms
+besu_pyroscope_profiling_event: itimer
+besu_pyroscope_profiling_lock: 10ms
+besu_pyroscope_profiling_alloc: 512k
+besu_pyroscope_upload_interval: 15s
+besu_pyroscope_log_level: debug
+besu_pyroscope_config_template: pyroscope.properties.j2
+besu_pyroscope_config_file: "{{ besu_config_dir }}/pyroscope.properties"
+besu_pyroscope_jar_file: "{{ besu_pyroscope_dir }}/pyroscope.jar"
 
 # internal state to maintain idempotency
 besu_state_updates: []

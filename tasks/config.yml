@@ -11,7 +11,7 @@
 - name: Generate config file
   template:
     src: "{{ besu_config_template }}"
-    dest: "{{ besu_config_dir }}/config.toml"
+    dest: "{{ besu_config_file }}"  
     owner: "{{ besu_user }}"
     group: "{{ besu_group }}"
     mode: 0644

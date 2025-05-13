@@ -97,7 +97,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_permissions_accounts_contract_address` | ___unset___ | The contract address for onchain accounts permissioning |
 | `besu_permissions_nodes_contract_address` | ___unset___ | The contract address for onchain nodes permissioning |
 | `besu_cmdline_args` | "" | Command line args that are passed in as overrides |
-| `besu_env_opts` | [] | Settings passed to the JVM through `BESU_OPTS` environment variable. eg: `[-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005]s` |
+| `besu_opts` | [] | Settings passed to the JVM through `BESU_OPTS` environment variable. eg: `[-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005]s` |
 | `besu_env_vars` | {} | Dictionary with environment variables to set when running Besu as systemd service. eg: `{MALLOC_ARENA_MAX: 2}` |
 | `besu_privacy_enabled` | false | Enable privacy |
 | `besu_privacy_url` | "" | URL to contact Orion on including port eg: `http://localhost:8888` |

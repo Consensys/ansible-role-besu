@@ -1,0 +1,25 @@
+
+#######################
+# pyroscope properties
+#######################
+
+# NOTE: avoid quotes in this file
+
+pyroscope.server.address={{besu_pyroscope_server_url}}
+{% if besu_pyroscope_basic_auth_user != "" %}
+pyroscope.basic.auth.user={{besu_pyroscope_basic_auth_user}}
+{% endif %}
+{% if besu_pyroscope_basic_auth_password != "" %}
+pyroscope.basic.auth.password={{besu_pyroscope_basic_auth_password}}
+{% endif %}
+
+pyroscope.format={{besu_pyroscope_format}}
+pyroscope.profiling.interva={{besu_pyroscope_profiling_interval}}
+pyroscope.profiling.event={{besu_pyroscope_profiling_event}}
+pyroscope.profiling.lock={{besu_pyroscope_profiling_lock}}
+pyroscope.profiling.alloc={{besu_pyroscope_profiling_alloc}}
+pyroscope.upload.interval={{besu_pyroscope_upload_interval}}
+pyroscope.log.level={{besu_pyroscope_log_level}}
+
+# Specifies tags to associate with profiles
+pyroscope.application.name={{besu_pyroscope_application_name}}
