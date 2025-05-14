@@ -1,17 +1,8 @@
 ---
-- name: Create configuration directory
-  file:
-    path: "{{ besu_config_dir }}"
-    state: directory
-    owner: "{{ besu_user }}"
-    group: "{{ besu_group }}"
-    recurse: yes
-  become: true
-
 - name: Generate config file
-  template:
+  ansible.builtin.template:
     src: "{{ besu_config_template }}"
-    dest: "{{ besu_config_file }}"  
+    dest: "{{ besu_config_file }}"
     owner: "{{ besu_user }}"
     group: "{{ besu_group }}"
     mode: 0644
@@ -19,9 +10,9 @@
   register: config_toml
 
 - name: Generate static nodes file if defined
-  copy:
+  ansible.builtin.copy:
     dest: "{{ besu_static_nodes_file }}"
-    content: "{{ besu_static_nodes | to_json }}" 
+    content: "{{ besu_static_nodes | to_json }}"
     owner: "{{ besu_user }}"
     group: "{{ besu_group }}"
     mode: 0644
@@ -29,9 +20,9 @@
   when: besu_static_nodes != []
 
 - name: Generate local permissions file if defined
-  template:
+  ansible.builtin.template:
     src: "{{ besu_local_permissions_config_file_template }}"
-    dest: "{{ besu_local_permissions_config_file }}" 
+    dest: "{{ besu_local_permissions_config_file }}"
     owner: "{{ besu_user }}"
     group: "{{ besu_group }}"
     mode: 0644
@@ -41,7 +32,7 @@
 - name: JWT secret
   block:
     - name: Check if a JWT secret already exists
-      stat:
+      ansible.builtin.stat:
         path: "{{ besu_engine_jwt_secret }}"
       register: stat_result
       when: besu_engine_jwt_secret_content is undefined
@@ -49,7 +40,7 @@
     # Set the value if it is set by the user or if the secret does not already exist,
     # if no secret is specified and there is not an existing secret on disk, then set it to a random value.
     - name: Set the JWT shared secret
-      copy:
+      ansible.builtin.copy:
         dest: "{{ besu_engine_jwt_secret }}"
         content: "{{ besu_engine_jwt_secret_content | default((('%#064x' % ((2 | pow(256) | int ) | random)) | split('x'))[1]) }}"
         owner: "{{ besu_user }}"
@@ -59,7 +50,7 @@
       when: besu_engine_jwt_secret_content is defined or not stat_result.stat.exists or stat_result.stat.size == 0
 
     - name: Set updated optionally to trigger a systemd restart at the end
-      set_fact:
+      ansible.builtin.set_fact:
         besu_state_updates: "{{ besu_state_updates + ['besu.jwt_secret_content'] }}"
       when: jwt_secret_content is changed
 
@@ -67,12 +58,12 @@
   become: yes
 
 - name: Set updated optionally to trigger a systemd restart at the end
-  set_fact:
+  ansible.builtin.set_fact:
     besu_state_updates: "{{ besu_state_updates + ['besu.config_toml'] }}"
   when: config_toml is changed
 
 - name: Create data directory
-  file:
+  ansible.builtin.file:
     path: "{{ besu_data_dir }}"
     state: directory
     owner: "{{ besu_user }}"

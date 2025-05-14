@@ -1,5 +1,7 @@
 .idea/
 env/
+venv/
+.venv/
 playbooks/env
 playbooks/*.retry
 playbooks/*.password

@@ -9,7 +9,7 @@
     - name: Check besu_privacy_enabled is not set when fast sync is enabled
       ansible.builtin.fail:
         msg: Orion and Fast-Sync are incompatible
-      when: ( besu_privacy_enabled|bool == True ) and
+      when: ( besu_privacy_enabled|bool ) and
             ( besu_privacy_public_key_file != "" ) and
             ( besu_sync_mode == "FAST" )
 

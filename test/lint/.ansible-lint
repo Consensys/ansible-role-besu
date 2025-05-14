@@ -1,4 +1,5 @@
-exclude_paths: []
+exclude_paths:
+  - ./venv
 parseable: true
 use_default_rules: true
 verbosity: true

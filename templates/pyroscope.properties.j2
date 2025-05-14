@@ -23,3 +23,6 @@ pyroscope.log.level={{besu_pyroscope_log_level}}
 
 # Specifies tags to associate with profiles
 pyroscope.application.name={{besu_pyroscope_application_name}}
+{% if besu_pyroscope_basic_auth_user != "" %}
+pyroscope.labels={{besu_pyroscope_labels}}
+{% endif %}

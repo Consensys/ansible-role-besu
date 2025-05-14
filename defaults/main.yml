@@ -112,12 +112,12 @@ besu_privacy_marker_tx_signing_key_file: ""
 
 # pyroscope
 besu_pyroscope_enabled: false
-besu_pyroscope_version: "v0.18.1"
-besu_pyroscope_url: "https://github.com/grafana/pyroscope-java/releases/download/{{besu_pyroscope_version}}/pyroscope.jar"
+besu_pyroscope_version: "v2.1.2"
+besu_pyroscope_url: "https://github.com/grafana/pyroscope-java/releases/download/{{ besu_pyroscope_version }}/pyroscope.jar"
 besu_pyroscope_server_url: "http://pyroscope:4040"
 besu_pyroscope_basic_auth_user: ""
 besu_pyroscope_basic_auth_password: ""
-besu_pyroscope_application_name: "besu-{{_besu_version}}"
+besu_pyroscope_application_name: "besu-{{ _besu_version }}"
 besu_pyroscope_format: jfr
 besu_pyroscope_profiling_interval: 10ms
 besu_pyroscope_profiling_event: itimer
@@ -128,6 +128,8 @@ besu_pyroscope_log_level: debug
 besu_pyroscope_config_template: pyroscope.properties.j2
 besu_pyroscope_config_file: "{{ besu_config_dir }}/pyroscope.properties"
 besu_pyroscope_jar_file: "{{ besu_pyroscope_dir }}/pyroscope.jar"
+# key1=value1,key2=value2....
+besu_pyroscope_labels: ""
 
 # internal state to maintain idempotency
 besu_state_updates: []

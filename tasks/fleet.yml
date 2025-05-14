@@ -1,7 +1,7 @@
 
 ---
 - name: Get the default ipv4 address
-  set_fact:
+  ansible.builtin.set_fact:
     besu_default_ip: >-
       {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] if
       hostvars[inventory_hostname]['ansible_default_ipv4']['address'] is
@@ -11,7 +11,7 @@
     besu_azure_private_ip: ""
 
 - name: Check if running on AWS
-  uri:
+  ansible.builtin.uri:
     url: http://169.254.169.254/latest/meta-data/local-ipv4
     method: GET
     return_content: yes
@@ -21,13 +21,13 @@
   when: (besu_plugin_fleet_node_role=="FOLLOWER")
 
 - name: Set the host ip if we are in AWS
-  set_fact:
+  ansible.builtin.set_fact:
     besu_plugin_fleet_follower_http_host: "{{ aws_private_ip_output.content }}"
   when: (besu_plugin_fleet_node_role=="FOLLOWER") and
     (aws_private_ip_output.status == 200)
-    
+
 - name: Check if running on Azure
-  uri:
+  ansible.builtin.uri:
     url: http://169.254.169.254/metadata/instance/network/interface/0/ipv4/ipAddress/0/privateIpAddress?api-version=2017-08-01&format=text
     method: GET
     headers:
@@ -40,14 +40,14 @@
     ( aws_private_ip_output.status != 200 )
 
 - name: Set the host ip if we are in Azure
-  set_fact:
+  ansible.builtin.set_fact:
     besu_plugin_fleet_follower_http_host: "{{ azure_private_ip_output.content }}"
   when: (besu_plugin_fleet_node_role=="FOLLOWER") and
-    ( aws_private_ip_output.status != 200 ) and 
+    ( aws_private_ip_output.status != 200 ) and
     ( azure_private_ip_output.status == 200 )
 
 - name: Check if running on GCP
-  uri:
+  ansible.builtin.uri:
     url: http://169.254.169.254/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/ip
     method: GET
     headers:
@@ -61,7 +61,7 @@
     ( azure_private_ip_output.status != 200 )
 
 - name: Set the host ip if we are in GCP
-  set_fact:
+  ansible.builtin.set_fact:
     besu_plugin_fleet_follower_http_host: "{{ gcp_private_ip_output.content }}"
   when: (besu_plugin_fleet_node_role=="FOLLOWER") and
     ( aws_private_ip_output.status != 200 ) and
@@ -69,7 +69,7 @@
     ( gcp_private_ip_output == 200 )
 
 - name: Fallback to the ansible default ip
-  set_fact:
+  ansible.builtin.set_fact:
     besu_plugin_fleet_follower_http_host: "{{ besu_default_ip }}"
   when: (besu_plugin_fleet_node_role=="FOLLOWER") and
     ( aws_private_ip_output.status != 200 ) and

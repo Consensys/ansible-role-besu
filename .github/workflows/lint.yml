@@ -31,4 +31,4 @@ jobs:
       - name: ansible lint 
         run: |
           . venv/bin/activate
-          ansible-lint . **/*.yml -c test/lint/.ansible-lint
+          ansible-lint -c test/lint/.ansible-lint defaults/*.yml meta/*.yml tasks/*.yml meta/*.yml vars/*.yml
