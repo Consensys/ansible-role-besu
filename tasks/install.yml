@@ -46,6 +46,15 @@
       - '1'
   become: true
 
+- name: delete the besu_build_from_source directory
+  file:
+    path: '/tmp/besu'
+    state: directory
+    owner: "{{ besu_user }}"
+    group: "{{ besu_group }}"
+  become: true
+  when: besu_build_from_source
+
 - name: Install plugins
   include_tasks: "plugins.yml"
   when: besu_plugins != []
