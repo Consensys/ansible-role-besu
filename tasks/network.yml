@@ -1,13 +1,13 @@
 ---
-- name: Get the default ipv4 address - and set this as the default fallback 
-  set_fact:
+- name: Get the default ipv4 address - and set this as the default fallback
+  ansible.builtin.set_fact:
     besu_host_ip: >-
       {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] if
       hostvars[inventory_hostname]['ansible_default_ipv4']['address'] is
       defined else '127.0.0.1' }}
-    
-- name: Fetch public IP 
-  uri:
+
+- name: Fetch public IP
+  ansible.builtin.uri:
     url: http://ifconfig.me/ip
     method: GET
     return_content: yes
@@ -16,6 +16,6 @@
   ignore_errors: True
 
 - name: Set the host ip
-  set_fact:
+  ansible.builtin.set_fact:
     besu_host_ip: "{{ besu_public_ip_output.content }}"
   when: besu_public_ip_output.status == 200

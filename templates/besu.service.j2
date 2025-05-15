@@ -9,8 +9,11 @@ Environment=HOME=/home/{{ besu_user }}
 {% if besu_log4j_config_file is defined %}
 Environment=LOG4J_CONFIGURATION_FILE={{ besu_log4j_config_file }}
 {% endif %}
-{% if besu_env_opts %}
-Environment='BESU_OPTS={{besu_env_opts|map('to_json')|join(' ')}}'
+{% if besu_pyroscope_enabled %}
+Environment=PYROSCOPE_CONFIGURATION_FILE={{ besu_pyroscope_config_file }}
+{% endif %}
+{% if besu_opts %}
+Environment='BESU_OPTS={{besu_opts|map('to_json')|join(' ')}}'
 {% endif %}
 {% for key, value in besu_env_vars.items() %}
 Environment='{{ key }}={{ value }}'

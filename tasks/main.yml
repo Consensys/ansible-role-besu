@@ -2,14 +2,14 @@
 - name: Ensure we have sane configuration
   block:
     - name: Check besu_version is correct
-      fail:
+      ansible.builtin.fail:
         msg: You must set "besu_version" for this role to run when not building Besu from source
       when: besu_version is not defined and not besu_build_from_source
 
     - name: Check besu_privacy_enabled is not set when fast sync is enabled
-      fail:
+      ansible.builtin.fail:
         msg: Orion and Fast-Sync are incompatible
-      when: ( besu_privacy_enabled|bool == True ) and
+      when: ( besu_privacy_enabled|bool ) and
             ( besu_privacy_public_key_file != "" ) and
             ( besu_sync_mode == "FAST" )
 
@@ -24,7 +24,7 @@
   when: besu_version == 'latest'
 
 - name: Include OS and distribution specific variables
-  include_vars: "{{ item }}"
+  ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - files:
         - "{{ ansible_distribution|lower }}.yml"
@@ -32,14 +32,14 @@
       skip: true
 
 - name: Compile besu
-  include_tasks: "compile.yml"
+  ansible.builtin.include_tasks: "compile.yml"
   when: besu_build_from_source
 
 - name: Install besu
-  include_tasks: "install.yml"
+  ansible.builtin.include_tasks: "install.yml"
 
 - name: Run OS specific installation tasks
-  include_tasks: "{{ item }}"
+  ansible.builtin.include_tasks: "{{ item }}"
   with_first_found:
     - files:
         - "{{ ansible_distribution|lower }}/install.yml"
@@ -47,18 +47,22 @@
       skip: true
 
 - name: Get IP address to bind to if not provided
-  include_tasks: "network.yml"
+  ansible.builtin.include_tasks: "network.yml"
   when: not besu_host_ip
 
 - name: Get private IP address to bind to if not provided for fleet mode
-  include_tasks: "fleet.yml"
+  ansible.builtin.include_tasks: "fleet.yml"
   when: besu_plugin_fleet_node_role != ""
 
+- name: Setup pyroscope
+  ansible.builtin.include_tasks: "pyroscope.yml"
+  when: besu_pyroscope_enabled
+
 - name: Create config
-  include_tasks: "config.yml"
+  ansible.builtin.include_tasks: "config.yml"
 
 - name: Create Besu service
-  include_tasks: "service.yml"
+  ansible.builtin.include_tasks: "service.yml"
 
 - name: Set version info on a local file
-  include_tasks: "tags.yml"
+  ansible.builtin.include_tasks: "tags.yml"

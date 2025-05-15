@@ -1,57 +1,40 @@
 ---
 - name: Ensure Besu group exists
-  group:
+  ansible.builtin.group:
     name: "{{ besu_group }}"
     state: present
   become: true
 
 - name: Create Besu user
-  user:
+  ansible.builtin.user:
     comment:  Besu client user
     name: "{{ besu_user }}"
     group: "{{ besu_group }}"
   become: true
 
-- name: Create base directory
+- name: Create directories
   file:
-    path: "{{ besu_base_dir }}"
+    path: "{{ item }}"
     state: directory
     owner: "{{ besu_user }}"
     group: "{{ besu_group }}"
-  become: true
-
-- name: Create install directory
-  file:
-    path: "{{ besu_install_dir }}"
-    state: directory
-    owner: "{{ besu_user }}"
-    group: "{{ besu_group }}"
-  become: true
-
-- name: Create plugins directory
-  file:
-    path: "{{ besu_plugins_dir }}"
-    state: directory
-    owner: "{{ besu_user }}"
-    group: "{{ besu_group }}"
-  become: true
-
-- name: Create log directory
-  file:
-    path: "{{ besu_log_dir }}"
-    state: directory
-    owner: "{{ besu_user }}"
-    group: "{{ besu_group }}"
+  loop:
+    - "{{ besu_base_dir }}"
+    - "{{ besu_install_dir }}"
+    - "{{ besu_config_dir }}"
+    - "{{ besu_plugins_dir }}"
+    - "{{ besu_pyroscope_dir }}"
+    - "{{ besu_log_dir }}"
   become: true
 
 - name: Setup logrotate
-  template:
+  ansible.builtin.template:
     src: "logrotate/besu"
     dest: "/etc/logrotate.d/besu"
   become: true
 
 - name: Extract Besu source to install directory
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ '/tmp/besu/build/distributions/besu-' + _besu_version + '.tar.gz' if besu_build_from_source else besu_download_url }}"
     remote_src: yes
     dest: "{{ besu_install_dir }}"
@@ -65,9 +48,10 @@
 
 - name: Install plugins
   include_tasks: "plugins.yml"
+  when: besu_plugins != []
 
 - name: Create a symlink to current
-  file:
+  ansible.builtin.file:
     src: "{{ besu_install_dir }}/"
     dest: "{{ besu_current_dir }}"
     state: link
@@ -75,6 +59,6 @@
   register: link_current
 
 - name: Set updated optionally to trigger a systemd restart at the end
-  set_fact:
+  ansible.builtin.set_fact:
     besu_state_updates: "{{ besu_state_updates + ['besu.install_dir'] }}"
   when: link_current is changed

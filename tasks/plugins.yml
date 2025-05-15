@@ -5,13 +5,13 @@
     url: "{{ item.download }}"
     dest: "{{ besu_plugins_dir }}/"
     owner: "{{ besu_user }}"
-    group: "{{ besu_group }}"    
+    group: "{{ besu_group }}"
   become: true
   loop:
     - "{{ besu_plugins }}"
   register: plugins_changes
 
 - name: Set updated optionally to trigger a systemd restart at the end
-  set_fact:
+  ansible.builtin.set_fact:
     besu_state_updates: "{{ besu_state_updates + ['besu.plugins'] }}"
   when: plugins_changes is changed
