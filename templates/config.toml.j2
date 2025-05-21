@@ -55,7 +55,7 @@ network="{{besu_network}}"
 min-gas-price={{ besu_min_gas }}
 sync-mode="{{besu_sync_mode}}"
 sync-min-peers={{besu_sync_min_peers}}
-host-whitelist=[{{besu_host_whitelist|map('to_json')|join(',')}}]
+host-allowlist=[{{besu_host_allowlist|map('to_json')|join(',')}}]
 
 {% if besu_identity is defined %}
 # identity
