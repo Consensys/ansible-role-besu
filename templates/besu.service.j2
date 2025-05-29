@@ -11,6 +11,7 @@ Environment=LOG4J_CONFIGURATION_FILE={{ besu_log4j_config_file }}
 {% endif %}
 {% if besu_pyroscope_enabled %}
 Environment=PYROSCOPE_CONFIGURATION_FILE={{ besu_pyroscope_config_file }}
+Environment=PYROSCOPE_PROFILER_ALLOC=512k
 {% endif %}
 {% if besu_opts %}
 Environment='BESU_OPTS={{besu_opts|map('to_json')|join(' ')}}'
