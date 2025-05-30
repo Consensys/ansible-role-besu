@@ -52,6 +52,7 @@
     state: directory
     owner: "{{ besu_user }}"
     group: "{{ besu_group }}"
+    state: absent
   become: true
   when: besu_build_from_source
 
