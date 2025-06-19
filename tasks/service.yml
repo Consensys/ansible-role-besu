@@ -25,7 +25,7 @@
   ansible.builtin.systemd:
     name: besu
     state: "{{ besu_systemd_state }}"
-    enabled: "{{ (besu_systemd_state!='stopped') | ternary('true', 'false') }}"
+    enabled: "{{ (besu_systemd_state!='stopped') | ternary('true', 'false') | bool }}"
   become: true
   when: ( besu_state_updates|length > 0 ) and
     ( besu_managed_service ) and
