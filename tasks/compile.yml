@@ -25,7 +25,7 @@
     depth: 1
 
 - name: Build Besu
-  ansible.builtin.command: ./gradlew --no-daemon --parallel clean assemble
+  ansible.builtin.command: ./gradlew --no-daemon --parallel clean assemble -x compileSolidity
   args:
     chdir: /tmp/besu
   changed_when: true
