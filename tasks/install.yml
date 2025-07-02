@@ -33,6 +33,17 @@
     dest: "/etc/logrotate.d/besu"
   become: true
 
+- name: Populate service facts
+  ansible.builtin.service_facts:
+
+- name: Halt the service if its running while we update
+  ansible.builtin.systemd:
+    name: besu
+    state: "stopped"
+  become: true
+  when: (ansible_facts.services['besu.service'] is defined) and
+        (ansible_facts.services['besu.service'].state =="running")
+
 - name: Extract Besu source to install directory
   ansible.builtin.unarchive:
     src: "{{ '/tmp/besu/build/distributions/besu-' + _besu_version + '.tar.gz' if besu_build_from_source else besu_download_url }}"
