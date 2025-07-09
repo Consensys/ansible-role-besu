@@ -41,8 +41,13 @@
     name: besu
     state: "stopped"
   become: true
+  register: besu_systemd_running
   when: (ansible_facts.services['besu.service'] is defined) and
         (ansible_facts.services['besu.service'].state =="running")
+
+- name: Set updated optionally to trigger a systemd restart at the end
+  ansible.builtin.debug:
+    var: besu_systemd_running
 
 - name: Extract Besu source to install directory
   ansible.builtin.unarchive:
