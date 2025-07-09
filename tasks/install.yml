@@ -46,6 +46,11 @@
         (ansible_facts.services['besu.service'].state =="running")
 
 - name: Set updated optionally to trigger a systemd restart at the end
+  ansible.builtin.set_fact:
+    besu_state_updates: "{{ besu_state_updates + ['besu.running_service'] }}"
+  when: besu_systemd_running.changed and not besu_systemd_running.failed
+
+- name: Set updated optionally to trigger a systemd restart at the end
   ansible.builtin.debug:
     var: besu_systemd_running
 
