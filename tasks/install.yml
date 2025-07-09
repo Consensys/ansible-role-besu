@@ -48,11 +48,7 @@
 - name: Set updated optionally to trigger a systemd restart at the end
   ansible.builtin.set_fact:
     besu_state_updates: "{{ besu_state_updates + ['besu.running_service'] }}"
-  when: besu_systemd_running.changed and not besu_systemd_running.failed
-
-- name: Set updated optionally to trigger a systemd restart at the end
-  ansible.builtin.debug:
-    var: besu_systemd_running
+  when: besu_systemd_running is defined and besu_systemd_running.changed and not besu_systemd_running.failed
 
 - name: Extract Besu source to install directory
   ansible.builtin.unarchive:
