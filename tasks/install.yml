@@ -36,6 +36,10 @@
 - name: Populate service facts
   ansible.builtin.service_facts:
 
+- name: Debug besu_state_updates
+  ansible.builtin.debug:
+    var: ansible_facts.services['besu.service']
+
 - name: Halt the service if its running while we update
   ansible.builtin.systemd:
     name: besu
