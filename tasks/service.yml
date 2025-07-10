@@ -21,6 +21,10 @@
   become: true
   when: systemd_file is changed
 
+- name: Debug besu_state_updates
+  ansible.builtin.debug:
+    var: besu_state_updates
+
 - name: Enable and start Besu service
   ansible.builtin.systemd:
     name: besu

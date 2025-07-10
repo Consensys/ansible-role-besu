@@ -36,13 +36,26 @@
 - name: Populate service facts
   ansible.builtin.service_facts:
 
+# This will ignore the case when besu is manually stopped - it assumes that is a mistake
+# If you are manually stopping and updating besu - disable the systemd service
+- name: Debug besu_state_updates
+  ansible.builtin.debug:
+    var: ansible_facts.services['besu.service']
+
 - name: Halt the service if its running while we update
   ansible.builtin.systemd:
     name: besu
     state: "stopped"
   become: true
+  register: besu_systemd_stopped
   when: (ansible_facts.services['besu.service'] is defined) and
-        (ansible_facts.services['besu.service'].state =="running")
+        (ansible_facts.services['besu.service'].status =="enabled")
+
+- name: Set updated optionally to trigger a systemd restart at the end
+  ansible.builtin.set_fact:
+    besu_state_updates: "{{ besu_state_updates + ['besu.running_service'] }}"
+  when: (besu_systemd_stopped is defined) and 
+        (besu_systemd_stopped.state | default('') == "stopped")
 
 - name: Extract Besu source to install directory
   ansible.builtin.unarchive:
