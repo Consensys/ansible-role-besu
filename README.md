@@ -55,6 +55,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_genesis_path` | ___unset___ | The path to the genesis file, only valid when `besu_network` is `custom` |
 | `besu_required_blocks` | [] | Requires a peer with the specified block number to have the specified hash when connecting, or Besu rejects that peer |
 | `besu_sync_mode` | FAST | Specifies the synchronization mode. Other values are 'FULL' |
+| `besu_sync_min_peers` | 5 | The minimum number of peers required before starting sync. Set to 1 to enable static peers to contribute to the initial sync. |
 | `besu_log_level` | ___unset___ | The log level to use. Other log levels are 'OFF', 'FATAL', 'WARN', 'INFO', 'DEBUG', 'TRACE', 'ALL'. Note setting this has priority over the configuration set by `besu_log4j_config_file` |
 | `besu_data_storage_format` | ___unset___ | Data storage format. Possible values are 'FOREST' and 'BONSAI'. The besu default is 'FOREST' |
 | `besu_engine_jwt_disabled` | ___unset___ | Disables authentication for the Engine API. The besu default is false. |
@@ -62,6 +63,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_engine_jwt_secret_content` | _random value_ | Only available if `besu_engine_jwt_secret` specified, the file is populated with this value, that must be at least 32 hex-encoded bytes and not begin with 0x, and should be encrypted with [Ansible Vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html#encrypting-individual-variables-with-ansible-vault). |
 | `besu_engine_rpc_port` | ___unset___ | The listening port for the Engine API calls (ENGINE, ETH) for JSON-RPC over HTTP and WebSocket. The besu default is 8551 |
 | `besu_p2p_port` | 30303 | Specifies the P2P listening ports (UDP and TCP). Ports must be exposed appropriately |
+| `besu_remote_connections_limit_enabled` | true | Enables or disables using the --remote-connections-max-percentage option to limit the percentage of remote P2P connections initiated by peers. |
 | `besu_min_gas` | 1000 | The minimum price that a transaction offers for it to be included in a mined block |
 | `besu_miner_enabled` | false | Enables mining when the node is started |
 | `besu_miner_coinbase` | 0x | Account to which mining rewards are paid |
@@ -71,6 +73,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_rpc_http_port` | 8545 | Specifies the port on which HTTP JSON-RPC listens |
 | `besu_rpc_http_api` | ["ADMIN","DEBUG","NET","ETH","MINER","WEB3"] | Comma-separated APIs to enable on the HTTP JSON-RPC channel. When you use this option, the `besu_rpc_http_enabled` option must also be enabled |
 | `besu_rpc_http_cors_origins` | ["all"] | Comma separated origin domain URLs for CORS validation |
+| `besu_rpc_http_max_active_connections` | 80 | The maximum number of allowed JSON-RPC HTTP connections. Once this limit is reached, incoming connections are rejected. |
 | `besu_rpc_ws_enabled` | true | Enabled the WebSockets service |
 | `besu_rpc_ws_api` | ["NET", "ETH", "WEB3"] | Comma-separated APIs to enable on the HTTP JSON-RPC channel. When you use this option, the `besu_rpc_ws_enabled` option must also be enabled |
 | `besu_rpc_ws_host` | 0.0.0.0 | Specifies the host on which WebSockets listens |
@@ -110,6 +113,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `besu_tx_pool_limit_by_account_percentage` | 0.001 | The maximum number of transactions, relative to the max pool size, for the same sender allowed in the transaction pool. Defaults to 5 to prevent a DoS attack. This uses a float value [0..1], so setting it to 1 means a single sender can fill the entire tx pool. Only apply if `legacy` implementation is selected |
 | `besu_tx_pool_max_size` | 4096  | The maximum number of transactions kept in the transaction pool.  Only apply if `legacy` implementation is selected |
 | `besu_tx_pool_retention_hours` | 13  | The maximum period, in hours, to hold pending transactions in the transaction pool.  Only apply if `legacy` implementation is selected |
+| `besu_tx_pool_no_local_priority` | false  | If this option is set to true, senders of transactions submitted via RPC are not prioritized over remote transactions in the transaction pool. |
 
 ### Example Playbook
 
