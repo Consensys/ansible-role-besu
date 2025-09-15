@@ -18,6 +18,7 @@
     state: directory
     owner: "{{ besu_user }}"
     group: "{{ besu_group }}"
+    recurse: True    
   loop:
     - "{{ besu_base_dir }}"
     - "{{ besu_install_dir }}"
