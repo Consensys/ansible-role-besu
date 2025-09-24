@@ -18,15 +18,20 @@
     state: directory
     owner: "{{ besu_user }}"
     group: "{{ besu_group }}"
-    recurse: True    
   loop:
     - "{{ besu_base_dir }}"
     - "{{ besu_install_dir }}"
     - "{{ besu_config_dir }}"
     - "{{ besu_plugins_dir }}"
     - "{{ besu_pyroscope_dir }}"
+    - "{{ besu_data_dir }}"
     - "{{ besu_log_dir }}"
   become: true
+
+- name: Ownership init marker
+  ansible.builtin.stat:
+    path: "{{ besu_data_dir }}/.ownership_initialized"
+  register: ownership_marker
 
 - name: Setup logrotate
   ansible.builtin.template:
@@ -57,6 +62,26 @@
     besu_state_updates: "{{ besu_state_updates + ['besu.running_service'] }}"
   when: (besu_systemd_stopped is defined) and 
         (besu_systemd_stopped.state | default('') == "stopped")
+
+- block:
+    - name: One-time recursive ownership of data dir
+      ansible.builtin.file:
+        path: "{{ besu_data_dir }}"
+        state: directory
+        owner: "{{ besu_user }}"
+        group: "{{ besu_group }}"
+        recurse: true
+      become: true
+
+    - name: Record that ownership was initialized
+      ansible.builtin.copy:
+        dest: "{{ besu_data_dir }}/.ownership_initialized"
+        content: "initialized: {{ ansible_date_time.iso8601 }}"
+        owner: "{{ besu_user }}"
+        group: "{{ besu_group }}"
+        mode: "0644"
+      become: true
+  when: not ownership_marker.stat.exists
 
 - name: Extract Besu source to install directory
   ansible.builtin.unarchive:

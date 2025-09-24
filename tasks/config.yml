@@ -61,12 +61,3 @@
   ansible.builtin.set_fact:
     besu_state_updates: "{{ besu_state_updates + ['besu.config_toml'] }}"
   when: config_toml is changed
-
-- name: Create data directory
-  ansible.builtin.file:
-    path: "{{ besu_data_dir }}"
-    state: directory
-    owner: "{{ besu_user }}"
-    group: "{{ besu_group }}"
-    recurse: yes
-  become: true
