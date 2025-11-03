@@ -127,7 +127,10 @@ tx-pool-limit-by-account-percentage={{ besu_tx_pool_limit_by_account_percentage 
 tx-pool-max-size={{ besu_tx_pool_max_size }}
 tx-pool-retention-hours={{ besu_tx_pool_retention_hours }}
 {% endif %}
+# Only include tx-pool-price-bump if gas is not free (i.e., min_gas > 0).
+{% if besu_min_gas | int > 0 or besu_min_gas | lower != '0' %}
 tx-pool-price-bump={{ besu_tx_pool_price_bump }}
+{% endif %}
 
 # metrics
 metrics-enabled=true
