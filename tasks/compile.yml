@@ -25,10 +25,27 @@
     depth: 1
 
 - name: Build Besu
-  ansible.builtin.command: ./gradlew --no-daemon --parallel clean assemble -x compileSolidity
+  ansible.builtin.shell: ./gradlew --no-daemon --parallel clean assemble -x compileSolidity > build.log 2>&1
   args:
     chdir: /tmp/besu
+  register: besu_build_result
   changed_when: true
+  ignore_errors: true  # handle the failure manually in the next step
+
+- name: Show Besu build errors
+  ansible.builtin.command: tail -n 200 /tmp/besu/build.log
+  register: besu_log_tail
+  when: besu_build_result.failed
+
+- name: Print build errors
+  ansible.builtin.debug:
+    msg: "{{ log_tail.stdout_lines }}"
+  when: besu_build_result.failed
+
+- name: Fail the playbook if build failed
+  ansible.builtin.fail:
+    msg: "The Besu build failed. Check /tmp/besu/build.log on the target machine for full details."
+  when: besu_build_result.failed
 
 - name: Get Besu Version
   ansible.builtin.shell: "basename build/distributions/*.tar.gz .tar.gz | sed 's/^besu-//'"
