@@ -1,5 +1,5 @@
 ---
-- name: Create Besu systemd service
+- name: service | Create Besu systemd service
   ansible.builtin.template:
     src: "{{ besu_systemd_template }}"
     dest: "{{ besu_systemd_dir }}/besu.service"
@@ -10,22 +10,22 @@
     ( ansible_os_family != "Darwin" )
   register: systemd_file
 
-- name: Set updated optionally to trigger a systemd restart at the end
+- name: service | Set updated optionally to trigger a systemd restart at the end
   ansible.builtin.set_fact:
     besu_state_updates: "{{ besu_state_updates + ['besu.systemd_file'] }}"
   when: systemd_file is changed
 
-- name: Reload systemd to reread configs
+- name: service | Reload systemd to reread configs
   ansible.builtin.systemd:
     daemon_reload: yes
   become: true
   when: systemd_file is changed
 
-- name: Debug besu_state_updates
+- name: service | Debug besu_state_updates
   ansible.builtin.debug:
     var: besu_state_updates
 
-- name: Enable and start Besu service
+- name: service | Enable and start Besu service
   ansible.builtin.systemd:
     name: besu
     state: "{{ besu_systemd_state }}"
@@ -36,7 +36,7 @@
     ( ansible_os_family != "Darwin" )
 
 # Darwin only
-- name: Create Launchd service plist for Darwin
+- name: service | Create Launchd service plist for Darwin
   ansible.builtin.template:
     src: "{{ besu_launchd_template }}"
     dest: "{{ besu_launchd_dir }}/org.hyperledger.besu.plist"

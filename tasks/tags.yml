@@ -1,4 +1,4 @@
-- name: Set the version on a local file so it can be used by other automation
+- name: tags | Set the version on a local file so it can be used by other automation
   copy:
     content: "{{ _besu_version }}"
     dest: "{{ besu_version_info_file }}"

@@ -10,6 +10,7 @@ besu_latest_version_url: "https://api.github.com/repos/hyperledger/besu/releases
 
 # Building from source
 besu_build_from_source: false
+besu_build_from_source_cmd: "./gradlew --no-daemon --parallel clean assemble -x compileSolidity > build.log 2>&1"
 besu_git_repo: "https://github.com/hyperledger/besu.git"
 besu_git_commit: "master"
 

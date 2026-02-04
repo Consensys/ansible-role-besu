@@ -1,5 +1,5 @@
 ---
-- name: Generate config file
+- name: config | Generate config file
   ansible.builtin.template:
     src: "{{ besu_config_template }}"
     dest: "{{ besu_config_file }}"
@@ -9,7 +9,7 @@
   become: true
   register: config_toml
 
-- name: Generate static nodes file if defined
+- name: config | Generate static nodes file if defined
   ansible.builtin.copy:
     dest: "{{ besu_static_nodes_file }}"
     content: "{{ besu_static_nodes | to_json }}"
@@ -19,7 +19,7 @@
   become: true
   when: besu_static_nodes != []
 
-- name: Generate local permissions file if defined
+- name: config | Generate local permissions file if defined
   ansible.builtin.template:
     src: "{{ besu_local_permissions_config_file_template }}"
     dest: "{{ besu_local_permissions_config_file }}"
@@ -29,7 +29,7 @@
   become: true
   when: besu_local_permissions_accounts != [] or besu_local_permissions_nodes != []
 
-- name: JWT secret
+- name: config | JWT secret
   block:
     - name: Check if a JWT secret already exists
       ansible.builtin.stat:
@@ -39,7 +39,7 @@
 
     # Set the value if it is set by the user or if the secret does not already exist,
     # if no secret is specified and there is not an existing secret on disk, then set it to a random value.
-    - name: Set the JWT shared secret
+    - name: config | Set the JWT shared secret
       ansible.builtin.copy:
         dest: "{{ besu_engine_jwt_secret }}"
         content: "{{ besu_engine_jwt_secret_content | default((('%#064x' % ((2 | pow(256) | int ) | random)) | split('x'))[1]) }}"
@@ -49,7 +49,7 @@
       register: jwt_secret_content
       when: besu_engine_jwt_secret_content is defined or not stat_result.stat.exists or stat_result.stat.size == 0
 
-    - name: Set updated optionally to trigger a systemd restart at the end
+    - name: config | Set updated optionally to trigger a systemd restart at the end
       ansible.builtin.set_fact:
         besu_state_updates: "{{ besu_state_updates + ['besu.jwt_secret_content'] }}"
       when: jwt_secret_content is changed
@@ -57,7 +57,7 @@
   when: besu_engine_jwt_secret is defined and besu_engine_jwt_secret != ""
   become: yes
 
-- name: Set updated optionally to trigger a systemd restart at the end
+- name: config | Set updated optionally to trigger a systemd restart at the end
   ansible.builtin.set_fact:
     besu_state_updates: "{{ besu_state_updates + ['besu.config_toml'] }}"
   when: config_toml is changed

@@ -1,10 +1,10 @@
 ---
-- name: Add Besu Brew tap
+- name: darwin | Add Besu Brew tap
   homebrew_tap:
     name: hyperledger/besu
     state: present
 
-- name: Install Besu via brew
+- name: darwin | Install Besu via brew
   homebrew:
     name: besu
     state: present

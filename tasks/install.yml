@@ -1,18 +1,18 @@
 ---
-- name: Ensure Besu group exists
+- name: install | Ensure Besu group exists
   ansible.builtin.group:
     name: "{{ besu_group }}"
     state: present
   become: true
 
-- name: Create Besu user
+- name: install | Create Besu user
   ansible.builtin.user:
     comment:  Besu client user
     name: "{{ besu_user }}"
     group: "{{ besu_group }}"
   become: true
 
-- name: Create directories
+- name: install | Create directories
   file:
     path: "{{ item }}"
     state: directory
@@ -28,27 +28,27 @@
     - "{{ besu_log_dir }}"
   become: true
 
-- name: Ownership init marker
+- name: install | Ownership init marker
   ansible.builtin.stat:
     path: "{{ besu_data_dir }}/.ownership_initialized"
   register: ownership_marker
 
-- name: Setup logrotate
+- name: install | Setup logrotate
   ansible.builtin.template:
     src: "logrotate/besu"
     dest: "/etc/logrotate.d/besu"
   become: true
 
-- name: Populate service facts
+- name: install | Populate service facts
   ansible.builtin.service_facts:
 
 # This will ignore the case when besu is manually stopped - it assumes that is a mistake
 # If you are manually stopping and updating besu - disable the systemd service
-- name: Debug besu_state_updates
+- name: install | Debug besu_state_updates
   ansible.builtin.debug:
     var: ansible_facts.services['besu.service']
 
-- name: Halt the service if its running while we update
+- name: install | Halt the service if its running while we update
   ansible.builtin.systemd:
     name: besu
     state: "stopped"
@@ -57,14 +57,14 @@
   when: (ansible_facts.services['besu.service'] is defined) and
         (ansible_facts.services['besu.service'].status =="enabled")
 
-- name: Set updated optionally to trigger a systemd restart at the end
+- name: install | Set updated optionally to trigger a systemd restart at the end
   ansible.builtin.set_fact:
     besu_state_updates: "{{ besu_state_updates + ['besu.running_service'] }}"
   when: (besu_systemd_stopped is defined) and 
         (besu_systemd_stopped.state | default('') == "stopped")
 
 - block:
-    - name: One-time recursive ownership of data dir
+    - name: install | One-time recursive ownership of data dir
       ansible.builtin.file:
         path: "{{ besu_data_dir }}"
         state: directory
@@ -73,7 +73,7 @@
         recurse: true
       become: true
 
-    - name: Record that ownership was initialized
+    - name: install | Record that ownership was initialized
       ansible.builtin.copy:
         dest: "{{ besu_data_dir }}/.ownership_initialized"
         content: "initialized: {{ ansible_date_time.iso8601 }}"
@@ -83,7 +83,7 @@
       become: true
   when: not ownership_marker.stat.exists
 
-- name: Extract Besu source to install directory
+- name: install | Extract Besu source to install directory
   ansible.builtin.unarchive:
     src: "{{ '/tmp/besu/build/distributions/besu-' + _besu_version + '.tar.gz' if besu_build_from_source else besu_download_url }}"
     remote_src: yes
@@ -96,7 +96,7 @@
       - '1'
   become: true
 
-- name: delete the besu_build_from_source directory
+- name: install | delete the besu_build_from_source directory
   file:
     path: '/tmp/besu'
     state: directory
@@ -106,11 +106,11 @@
   become: true
   when: besu_build_from_source
 
-- name: Install plugins
+- name: install | Install plugins
   include_tasks: "plugins.yml"
   when: besu_plugins != []
 
-- name: Create a symlink to current
+- name: install | Create a symlink to current
   ansible.builtin.file:
     src: "{{ besu_install_dir }}/"
     dest: "{{ besu_current_dir }}"
@@ -118,7 +118,7 @@
   become: true
   register: link_current
 
-- name: Set updated optionally to trigger a systemd restart at the end
+- name: install | Set updated optionally to trigger a systemd restart at the end
   ansible.builtin.set_fact:
     besu_state_updates: "{{ besu_state_updates + ['besu.install_dir'] }}"
   when: link_current is changed

@@ -1,5 +1,5 @@
 ---
-- name: Download pyroscope jar
+- name: pyro | Download pyroscope jar
   ansible.builtin.get_url:
     url: "{{ besu_pyroscope_url }}"
     dest: "{{ besu_pyroscope_jar_file }}"
@@ -9,24 +9,24 @@
   register: pyroscope_changes
 
 # Add the flag to enable pyroscope as a besu_opts
-- name: Check if the pyroscope is present in besu_opts
+- name: pyro | Check if the pyroscope is present in besu_opts
   ansible.builtin.set_fact:
     pyroscope_is_in_opts: "{{ besu_opts | select('pyroscope.jar') | list | length > 0 }}"
 
-- name: Add an element if pyroscope isn't present in besu_opts
+- name: pyro | Add an element if pyroscope isn't present in besu_opts
   ansible.builtin.set_fact:
     besu_opts: "{{ besu_opts + ['-javaagent:{{ besu_pyroscope_jar_file }}'] if not pyroscope_is_in_opts else besu_opts }}"
     besu_pyroscope_labels: "{{ besu_pyroscope_labels }},el_client=besu:{{ _besu_version }}"
 
-- name: Show the besu_opts list
+- name: pyro | Show the besu_opts list
   ansible.builtin.debug:
     var: besu_opts
 
-- name: Show the besu_opts list
+- name: pyro | Show the besu_opts list
   ansible.builtin.debug:
     var: besu_pyroscope_labels
 
-- name: Generate config file
+- name: pyro | Generate config file
   ansible.builtin.template:
     src: "{{ besu_pyroscope_config_template }}"
     dest: "{{ besu_pyroscope_config_file }}"
@@ -36,7 +36,7 @@
   become: true
   register: pyroscope_config_changes
 
-- name: Set updated optionally to trigger a systemd restart at the end
+- name: pyro | Set updated optionally to trigger a systemd restart at the end
   set_fact:
     besu_state_updates: "{{ besu_state_updates + ['besu.pyroscope'] }}"
   when: pyroscope_changes is changed

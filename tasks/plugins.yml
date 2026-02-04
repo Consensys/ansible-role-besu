@@ -1,6 +1,6 @@
 ---
 
-- name: Download plugins
+- name: network | Download plugins
   ansible.builtin.get_url:
     url: "{{ item.download }}"
     dest: "{{ besu_plugins_dir }}/"
@@ -11,7 +11,7 @@
     - "{{ besu_plugins }}"
   register: plugins_changes
 
-- name: Set updated optionally to trigger a systemd restart at the end
+- name: network | Set updated optionally to trigger a systemd restart at the end
   ansible.builtin.set_fact:
     besu_state_updates: "{{ besu_state_updates + ['besu.plugins'] }}"
   when: plugins_changes is changed
