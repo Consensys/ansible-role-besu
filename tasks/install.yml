@@ -1,7 +1,41 @@
 ---
+- name: install | Lookup besu user
+  getent:
+    database: passwd
+    key: "{{ besu_user }}"
+  register: besu_user_entry
+  failed_when: false
+
+- name: install | Extract current UID (only if user exists)
+  set_fact:
+    besu_current_uid: "{{ besu_user_entry.ansible_facts.getent_passwd[besu_user][1] | int }}"
+  when: not besu_user_entry.failed
+
+- name: install | Determine if UID update is needed
+  set_fact:
+    besu_uid_needs_update: "{{ besu_current_uid != besu_uid }}"
+  when: not besu_user_entry.failed
+
+- name: install | Stop enabled besu services if UID needs update
+  service:
+    name: "besu"
+    state: stopped
+  when:
+    - not besu_user_entry.failed
+    - besu_uid_needs_update
+  become: true
+
+- name: install | Set updated optionally to trigger a systemd restart at the end
+  set_fact:
+    besu_state_updates: "{{ besu_state_updates + ['besu.uid'] }}"
+  when:
+    - not besu_user_entry.failed
+    - besu_uid_needs_update
+
 - name: install | Ensure Besu group exists
   ansible.builtin.group:
     name: "{{ besu_group }}"
+    gid: "{{ besu_gid }}"
     state: present
   become: true
 
@@ -9,6 +43,7 @@
   ansible.builtin.user:
     comment:  Besu client user
     name: "{{ besu_user }}"
+    uid: "{{ besu_uid }}"
     group: "{{ besu_group }}"
   become: true
 
@@ -18,6 +53,7 @@
     state: directory
     owner: "{{ besu_user }}"
     group: "{{ besu_group }}"
+    recurse: true
   loop:
     - "{{ besu_base_dir }}"
     - "{{ besu_install_dir }}"

@@ -3,6 +3,8 @@
 # User and group
 besu_user: besu
 besu_group: "{{ besu_user }}"
+besu_uid: 1511
+besu_gid: 1511
 
 # Version to install
 besu_download_url: "https://github.com/hyperledger/besu/releases/download/{{ _besu_version }}/besu-{{ _besu_version }}.tar.gz"
