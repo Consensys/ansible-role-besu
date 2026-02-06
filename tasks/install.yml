@@ -6,31 +6,33 @@
   register: besu_user_entry
   failed_when: false
 
-- name: install | Extract current UID (only if user exists)
+- name: install | Determine if besu user exists
   set_fact:
-    besu_current_uid: "{{ besu_user_entry.ansible_facts.getent_passwd[besu_user][1] | int }}"
-  when: not besu_user_entry.failed
+    besu_user_exists: "{{ besu_user in (besu_user_entry.ansible_facts.getent_passwd | default({})) }}"
 
-- name: install | Determine if UID update is needed
-  set_fact:
-    besu_uid_needs_update: "{{ besu_current_uid != besu_uid }}"
-  when: not besu_user_entry.failed
+- block:
 
-- name: install | Stop enabled besu services if UID needs update
-  service:
-    name: "besu"
-    state: stopped
-  when:
-    - not besu_user_entry.failed
-    - besu_uid_needs_update
-  become: true
+    - name: install | Extract current UID
+      ansible.builtin.set_fact:
+        besu_current_uid: "{{ besu_user_entry.ansible_facts.getent_passwd[besu_user][1] | int }}"
 
-- name: install | Set updated optionally to trigger a systemd restart at the end
-  set_fact:
-    besu_state_updates: "{{ besu_state_updates + ['besu.uid'] }}"
-  when:
-    - not besu_user_entry.failed
-    - besu_uid_needs_update
+    - name: install | Determine if UID update is needed
+      ansible.builtin.set_fact:
+        besu_uid_needs_update: "{{ besu_current_uid != besu_uid }}"
+
+    - name: install | Stop enabled besu service if UID needs update
+      ansible.builtin.service:
+        name: besu
+        state: stopped
+      become: true
+      when: besu_uid_needs_update
+
+    - name: install | Mark UID update for systemd restart
+      ansible.builtin.set_fact:
+        besu_state_updates: "{{ besu_state_updates + ['besu.uid'] }}"
+      when: besu_uid_needs_update
+
+  when: besu_user_exists
 
 - name: install | Ensure Besu group exists
   ansible.builtin.group:
