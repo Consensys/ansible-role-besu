@@ -45,6 +45,9 @@
       register: besu_build_result
       changed_when: true
       ignore_errors: true  # handle the failure manually in the next step
+      retries: "{{ besu_build_retries | int }}"  
+      delay: 10   # wait 10 seconds between retries
+      until: besu_build_result.rc == 0  # retry until the command returns a successful return code
 
   rescue:
     - name: compile | Show Besu build errors
@@ -61,9 +64,6 @@
       ansible.builtin.fail:
         msg: "The Besu build failed after {{ besu_build_retries }} attempts. Check /tmp/besu/build.log on the target machine for full details."
       when: besu_build_result.failed
-  until: besu_build_result.rc == 0
-  retries: "{{ besu_build_retries }}"
-  delay: 10  # adds a 10s delay between retries
 
 - name: compile | Get Besu Version
   ansible.builtin.shell: "basename build/distributions/*.tar.gz .tar.gz | sed 's/^besu-//'"
