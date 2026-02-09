@@ -25,40 +25,45 @@
     depth: 1
   become: true
   become_user: ubuntu
-  # Explicitly ensure the files are owned by ubuntu regardless of 'become' settings  
 
-- name: compile | Fix permissions before Gradle starts
-  ansible.builtin.file:
-    path: /tmp/besu
-    owner: ubuntu
-    group: ubuntu
-    recurse: yes
-  become: true
+- name: compile | Attempt to Build Besu with retries
+  block:
+    - name: compile | Fix permissions before Gradle starts
+      ansible.builtin.file:
+        path: /tmp/besu
+        owner: ubuntu
+        group: ubuntu
+        recurse: yes
+      become: true
 
-- name: compile | Build Besu
-  ansible.builtin.shell: "{{ besu_build_from_source_cmd }}"
-  args:
-    chdir: /tmp/besu
-  become: true
-  become_user: ubuntu
-  register: besu_build_result
-  changed_when: true
-  ignore_errors: true  # handle the failure manually in the next step
+    - name: compile | Build Besu
+      ansible.builtin.shell: "{{ besu_build_from_source_cmd }}"
+      args:
+        chdir: /tmp/besu
+      become: true
+      become_user: ubuntu
+      register: besu_build_result
+      changed_when: true
+      ignore_errors: true  # handle the failure manually in the next step
 
-- name: compile | Show Besu build errors
-  ansible.builtin.command: tail -n 200 /tmp/besu/build.log
-  register: besu_log_tail
-  when: besu_build_result.failed
+  rescue:
+    - name: compile | Show Besu build errors
+      ansible.builtin.command: tail -n 200 /tmp/besu/build.log
+      register: besu_log_tail
+      when: besu_build_result.failed
 
-- name: compile | Print build errors
-  ansible.builtin.debug:
-    msg: "{{ besu_log_tail.stdout_lines }}"
-  when: besu_build_result.failed
+    - name: compile | Print build errors
+      ansible.builtin.debug:
+        msg: "{{ besu_log_tail.stdout_lines }}"
+      when: besu_build_result.failed
 
-- name: compile | Fail the playbook if build failed
-  ansible.builtin.fail:
-    msg: "The Besu build failed. Check /tmp/besu/build.log on the target machine for full details."
-  when: besu_build_result.failed
+    - name: compile | Fail the playbook if build failed
+      ansible.builtin.fail:
+        msg: "The Besu build failed after {{ besu_build_retries }} attempts. Check /tmp/besu/build.log on the target machine for full details."
+      when: besu_build_result.failed
+  until: besu_build_result.rc == 0
+  retries: "{{ besu_build_retries }}"
+  delay: 10  # adds a 10s delay between retries
 
 - name: compile | Get Besu Version
   ansible.builtin.shell: "basename build/distributions/*.tar.gz .tar.gz | sed 's/^besu-//'"
