@@ -48,7 +48,9 @@ besu_launchd_dir: /Library/LaunchAgents
 besu_host_ip: ""
 besu_network: mainnet
 besu_sync_mode: FAST
+besu_sync_min_peers: 5
 besu_p2p_port: 30303
+besu_remote_connections_limit_enabled: "true"
 besu_min_gas: 1000
 besu_miner_extra_data: ""
 besu_miner_coinbase: 0x
@@ -58,6 +60,7 @@ besu_rpc_http_host: 0.0.0.0
 besu_rpc_http_port: 8545
 besu_rpc_http_api: ["ADMIN", "DEBUG", "NET", "ETH", "MINER", "WEB3"]
 besu_rpc_http_cors_origins: ["all"]
+besu_rpc_http_max_active_connections: 80
 besu_rpc_ws_api: ["NET", "ETH", "WEB3"]
 besu_rpc_ws_enabled: "true"
 besu_rpc_ws_host: 0.0.0.0
@@ -92,6 +95,7 @@ besu_tx_pool_limit_by_account_percentage: 0.001
 besu_tx_pool_max_size: 4096
 besu_tx_pool_price_bump: 10
 besu_tx_pool_retention_hours: 13
+besu_tx_pool_no_local_priority: "false"
 
 # Besu plugins
 # list of dicts
